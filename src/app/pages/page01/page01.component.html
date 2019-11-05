@@ -1,69 +1,26 @@
-<nav class="navbar navbar-expand-lg main-nav">
-  <a class="navbar-brand" href="#"><img src="assets/images/logo1.png" alt="logo"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link nav-first" href="#"><span style="color: #625F5A">管理者/シフト希望を募集 (新規)</span></a>
-      </li>
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="#">Link</a>-->
-      <!--</li>-->
-    </ul>
-    <ul class="navbar-nav nav-right">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          日本東京病院
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          メニュー
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <!--<span class="fa-stack">-->
-        <!--<i class="fa fa-square-o fa-stack-2x"></i>-->
-        <!--<i class="fa fa-stack-1x">A</i>-->
-        <!--</span>-->
-        <div class="nav-border"><span>A</span></div>
-
-      </li>
-      <li class="nav-item">
-        <div class="nav-text"><span>123,040</span></div>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link"><i class="fa fa-star-o fa-lg" aria-hidden="true"></i></a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link"><i class="fa fa-paper-plane-o fa-lg" aria-hidden="true"></i><span
-          class="nav-text nav-small">15</span></a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link"><i class="fa fa-cog fa-lg" aria-hidden="true"></i></a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">ログアウト</a>
-      </li>
-
-    </ul>
-  </div>
-</nav>
+<div class="a">
+<div class="login-form">
+  <form class="" (submit)="checkLogin()">
+    <div class="lock-icon-wrap">
+      <div class="lock-icon rounded-circle">
+        <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+      </div>
+    </div>
+    <h2 class="text-center">Member Login</h2>
+    <div class="form-group">
+      <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+    </div>
+    <div class="clearfix">
+      <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+      <a href="#" class="pull-right">Forgot Password?</a>
+    </div>
+  </form>
+  <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
+</div>
+</div>

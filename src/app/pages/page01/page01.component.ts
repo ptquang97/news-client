@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NewsService} from '../../services/news.service';
 
 @Component({
   selector: 'app-page01',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page01Component implements OnInit {
 
-  constructor() { }
+  constructor(private newsService: NewsService) { }
 
   ngOnInit() {
   }
-
+  checkLogin() {
+    // this.newsService.checkLogin(){
+    //
+    // }
+  }
 }

@@ -7,7 +7,7 @@ import {Page01Component} from './pages/page01/page01.component';
 // import {Page05Component} from './pages/page05/page05.component';
 const routes: Routes = [
   {
-    path: 'index',
+    path: 'login',
     component: Page01Component
   }
 //   {

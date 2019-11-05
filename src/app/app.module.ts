@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient , HttpClientModule} from '@angular/common/http';
-import { LSelect2Module } from 'ngx-select2';
+// import { LSelect2Module } from 'ngx-select2';
 import { Page01Component } from './pages/page01/page01.component';
 @NgModule({
   declarations: [
@@ -17,8 +17,8 @@ import { Page01Component } from './pages/page01/page01.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    LSelect2Module
+    ReactiveFormsModule
+    // LSelect2Module
   ],
   providers: [],
   bootstrap: [AppComponent]
