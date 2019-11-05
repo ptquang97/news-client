@@ -1,2 +1,7 @@
 /* You can add global styles to this file, and also import other styles files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "assets/styles/_variable";
+@import "~bootstrap/scss/bootstrap";
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+@import "assets/styles/theme";
