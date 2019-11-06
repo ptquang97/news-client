@@ -1,26 +1,59 @@
-<div class="a">
-<div class="login-form">
-  <form class="" (submit)="checkLogin()">
-    <div class="lock-icon-wrap">
-      <div class="lock-icon rounded-circle">
-        <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+<div class="content">
+  <div class="login-form" *ngIf="loginPage">
+    <form class="" (submit)="checkLogin()">
+      <div class="lock-icon-wrap">
+        <div class="lock-icon rounded-circle">
+          <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+        </div>
       </div>
-    </div>
-    <h2 class="text-center">Member Login</h2>
-    <div class="form-group">
-      <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-    </div>
-    <div class="clearfix">
-      <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-      <a href="#" class="pull-right">Forgot Password?</a>
-    </div>
-  </form>
-  <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
-</div>
+      <h2 class="text-center">Member Login</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="loginInfo.email"
+               required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password"
+               [(ngModel)]="loginInfo.password" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+      </div>
+      <div class="clearfix">
+        <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+        <a href="#" class="pull-right">Forgot Password?</a>
+      </div>
+    </form>
+    <p class="text-center small">Don't have an account? <a class="cursor-pointer" (click)="goToRegisterPage()">Sign up
+      here!</a></p>
+  </div>
+  <div class="login-form" *ngIf="!loginPage">
+    <form class="" (submit)="createUser()">
+      <div class="lock-icon-wrap">
+        <div class="lock-icon rounded-circle">
+          <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
+        </div>
+      </div>
+      <h2 class="text-center">Create Account</h2>
+      <div class="form-group">
+        <input type="text" class="form-control" name="userName" placeholder="User Name"
+               [(ngModel)]="registerInfor.userName" required="required">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="registerInfor.email"
+               required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password"
+               [(ngModel)]="registerInfor.password" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+      </div>
+      <div class="clearfix">
+        <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+        <a href="#" class="pull-right">Forgot Password?</a>
+      </div>
+    </form>
+    <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
+  </div>
 </div>
