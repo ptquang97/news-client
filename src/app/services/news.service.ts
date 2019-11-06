@@ -34,7 +34,6 @@ export class NewsService {
     return new Observable(observer => {
       this.http.post(Domain.domain + '/api/user/createUser', JSON.stringify(registerInfo))
         .subscribe((response: Response) => {
-          console.log(response);
           if (response.status === HttpStatus.OK) {
             observer.next(response.json());
             observer.complete();
@@ -46,4 +45,5 @@ export class NewsService {
         });
     });
   }
+
 }

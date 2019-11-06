@@ -8,6 +8,7 @@ import {HttpClient , HttpClientModule} from '@angular/common/http';
 import { Page01Component } from './pages/page01/page01.component';
 import {NewsService} from './services/news.service';
 import {Http, HttpModule} from '@angular/http';
+import {Validator} from './common/validator';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {Http, HttpModule} from '@angular/http';
     // LSelect2Module
   ],
   providers: [
-    NewsService
+    NewsService,
+    Validator
   ],
   bootstrap: [AppComponent]
 })

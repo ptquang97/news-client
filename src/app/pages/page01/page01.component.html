@@ -1,6 +1,6 @@
 <div class="content">
   <div class="login-form" *ngIf="loginPage">
-    <form class="" (submit)="checkLogin()">
+    <form class="">
       <div class="lock-icon-wrap">
         <div class="lock-icon rounded-circle">
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
@@ -16,7 +16,7 @@
                [(ngModel)]="loginInfo.password" required="required">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="checkLogin()">Sign in</button>
       </div>
       <div class="clearfix">
         <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
@@ -27,7 +27,7 @@
       here!</a></p>
   </div>
   <div class="login-form" *ngIf="!loginPage">
-    <form class="" (submit)="createUser()">
+    <form class="">
       <div class="lock-icon-wrap">
         <div class="lock-icon rounded-circle">
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
@@ -35,19 +35,22 @@
       </div>
       <h2 class="text-center">Create Account</h2>
       <div class="form-group">
+        <span class="text-danger" *ngIf="formErrorsRegister.userName">{{formErrorsRegister.userName}}</span>
         <input type="text" class="form-control" name="userName" placeholder="User Name"
                [(ngModel)]="registerInfor.userName" required="required">
       </div>
       <div class="form-group">
+        <span class="text-danger" *ngIf="formErrorsRegister.email">{{formErrorsRegister.email}}</span>
         <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="registerInfor.email"
                required="required">
       </div>
       <div class="form-group">
+        <span class="text-danger" *ngIf="formErrorsRegister.password">{{formErrorsRegister.password}}</span>
         <input type="password" class="form-control" name="password" placeholder="Password"
                [(ngModel)]="registerInfor.password" required="required">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="createUser()">Sign Up</button>
       </div>
       <div class="clearfix">
         <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
