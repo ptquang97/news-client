@@ -1,4 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NewsService} from '../../services/news.service';
+import {ApiResponse} from '../../models/api-response';
+import {TagInfo} from '../../models/tag-info';
+import {CategoryInfo} from '../../models/category-info';
 
 @Component({
   selector: 'app-page03',
@@ -10,9 +14,10 @@ export class Page03Component implements OnInit {
   public editorValue = '';
   config: any;
   categoryOption: any;
-  listCategory: any;
+  listCategory: CategoryInfo[] = [];
   selectedCategory: any;
-  constructor() {
+  lisTag: TagInfo[] = [];
+  constructor(private newsService: NewsService) {
     this.categoryOption = {
       multiple: false,
       closeOnSelect: false,
@@ -26,12 +31,8 @@ export class Page03Component implements OnInit {
   }
 
   ngOnInit() {
-    this.listCategory = [
-      {id: '', text: 'Select Category'},
-      {id: 1, text: 'a'},
-      {id: 1, text: 'b'},
-      {id: 1, text: 'c'}
-      ];
+    this.getListTags();
+    this.getListCategory();
     this.config = {
         uiColor: '#F0F3F4',
         height: '400px',
@@ -42,6 +43,20 @@ export class Page03Component implements OnInit {
   onSubmit() {
     console.log(this.ckeditor);
     console.log(this.editorValue);
+  }
+
+  getListTags() {
+    this.newsService.getTags().subscribe((res: ApiResponse) => {
+      this.lisTag = res.body;
+      this.lisTag.unshift({id: '', tag_name: 'Select tag'});
+    });
+  }
+
+  getListCategory() {
+    this.newsService.getCategories().subscribe((res: ApiResponse) => {
+      this.listCategory = res.body;
+      this.listCategory.unshift({id: '', category_name: 'Select Category'});
+    });
   }
 
   selectCategory() {

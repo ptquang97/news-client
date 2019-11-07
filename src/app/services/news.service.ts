@@ -15,7 +15,7 @@ declare const $: any;
 export class NewsService {
   isLogin = false;
   url: string;
-
+  userInfo: UserInfo;
   constructor(private http: Http,
               private router: Router,
               private location: Location
@@ -94,4 +94,33 @@ export class NewsService {
     });
   }
 
+  getTags(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/tag/getTags').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getCategories(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/category/getCategory').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
 }

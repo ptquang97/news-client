@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../../services/news.service';
 import {LoginInfo} from '../../models/login-info';
 import {UserInfo} from '../../models/user-info';
-import {Response} from '../../models/response';
+import {ApiResponse} from '../../models/api-response';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterInfo} from '../../models/register-info';
 import {Validator} from '../../common/validator';
@@ -48,7 +48,7 @@ export class Page01Component implements OnInit {
     this.formErrors = this.checkValidate(form, this.formErrors);
     if (!this.checkError(this.formErrors)) {
       this.newsService.showLoading(true);
-      this.newsService.checkLogin(this.loginInfo).subscribe((data: Response) => {
+      this.newsService.checkLogin(this.loginInfo).subscribe((data: ApiResponse) => {
         this.newsService.showLoading(false);
         if (data.msg === 'Invalid Email') {
           this.formErrors.email = 'Email does not exist';
@@ -60,6 +60,7 @@ export class Page01Component implements OnInit {
         }
         console.log(data);
       }, error => {
+        this.newsService.showLoading(false);
         this.swal.error({title: 'Error'}). then(() => {
 
         });
@@ -87,13 +88,14 @@ export class Page01Component implements OnInit {
       this.validator.gotoError();
       if (!this.checkError(this.formErrorsRegister)) {
         this.newsService.showLoading(true);
-        this.newsService.createUser(this.registerInfor).subscribe((data: Response) => {
+        this.newsService.createUser(this.registerInfor).subscribe((data: ApiResponse) => {
           this.newsService.showLoading(false);
           this.swal.success({ title: 'Create User Success' }).then(() => {
             this.loginPage = true;
           });
           console.log(data);
         }, error => {
+          this.newsService.showLoading(false);
           this.swal.error({title: 'Error'}). then(() => {
           });
         });
@@ -145,8 +147,8 @@ export class Page01Component implements OnInit {
   }
 
   resetError() {
-    this.loginInfo= new LoginInfo();
-    this.registerInfor= new RegisterInfo();
+    this.loginInfo = new LoginInfo();
+    this.registerInfor = new RegisterInfo();
     this.formErrors = {
       email: '',
       password: ''

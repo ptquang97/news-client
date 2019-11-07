@@ -32,7 +32,14 @@
                                <!--(ngModelChange)="selectCategory()"-->
                                <!--[data]="listCategory"></l-select2>-->
                     <select class="form-control" id="category" >
-                    <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top" title="{{category.text}}">{{category.text}}
+                    <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top" title="{{category.category_name}}">{{category.category_name}}
+                    </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <span class="text-danger"></span>
+                    <select class="form-control" id="tag">
+                    <option *ngFor="let tag of lisTag" value="{{ tag.id }}" data-placement="top" title="{{tag.tag_name}}">{{tag.tag_name}}
                     </option>
                     </select>
                   </div>
