@@ -6,7 +6,8 @@ import {Response} from '../../models/response';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterInfo} from '../../models/register-info';
 import {Validator} from '../../common/validator';
-
+import {Router} from '@angular/router';
+import { SweetAlertService } from 'ngx-sweetalert2';
 @Component({
   selector: 'app-page01',
   templateUrl: './page01.component.html',
@@ -30,71 +31,73 @@ export class Page01Component implements OnInit {
       'required': 'Password required',
     }
   };
+  rePassword = '';
+  rePasswordError = '';
   constructor(private newsService: NewsService,
               private formBuilder: FormBuilder,
-              private validator: Validator) { }
+              private validator: Validator,
+              private router: Router,
+              private swal: SweetAlertService) { }
 
   ngOnInit() {
-    this.formErrors = {
-      email: '',
-      password: ''
-    };
-    this.formErrorsRegister = {
-      email: '',
-      password: '',
-      userName: ''
-    };
+    this.resetError();
   }
 
   checkLogin() {
-    this.formErrors = {
-      email: '',
-      password: ''
-    };
-    this.newsService.checkLogin(this.loginInfo).subscribe((data: Response) => {
-      if (data.msg === 'Invalid Email') {
-        this.formErrors.email = 'Email Không chính xác';
-      } else if (data.msg === 'Invalid Password') {
-        this.formErrors.password = 'Mật khẩu Không chính xác';
-      } else {
-        this.newsService.isLogin = true;
-      }
-    }, error => {
-
-    });
-  }
-
-  goToRegisterPage() {
-    this.loginPage = false;
-    this.formErrors = {
-      email: '',
-      password: ''
-    };
-    this.formErrorsRegister = {
-      email: '',
-      password: '',
-      userName: ''
-    };
-  }
-
-  createUser() {
-    this.registerInfor.rule = 0;
-    const form = this.createForm(this.registerInfor);
-    this.formErrorsRegister = this.checkValidate(form);
-    this.validator.gotoError();
-    if (!this.checkError(this.formErrorsRegister)) {
-      this.newsService.createUser(this.registerInfor).subscribe((data: Response) => {
+    const form = this.createFormLogin(this.loginInfo);
+    this.formErrors = this.checkValidate(form, this.formErrors);
+    if (!this.checkError(this.formErrors)) {
+      this.newsService.showLoading(true);
+      this.newsService.checkLogin(this.loginInfo).subscribe((data: Response) => {
+        this.newsService.showLoading(false);
         if (data.msg === 'Invalid Email') {
-          this.formErrors.email = 'Email Không chính xác';
+          this.formErrors.email = 'Email does not exist';
         } else if (data.msg === 'Invalid Password') {
-          this.formErrors.password = 'Mật khẩu Không chính xác';
+          this.formErrors.password = 'Password invalid';
         } else {
           this.newsService.isLogin = true;
+          this.router.navigate(['']);
         }
         console.log(data);
       }, error => {
+        this.swal.error({title: 'Error'}). then(() => {
 
+        });
       });
+    }
+  }
+
+  goToRegisterPage(key?) {
+    this.resetError();
+    if (key) {
+      this.loginPage = false;
+    } else {
+      this.loginPage = true;
+    }
+  }
+
+  createUser() {
+    this.rePasswordError = '';
+    if (this.registerInfor.password !== this.rePassword) {
+      this.rePasswordError = 'Password not match!';
+    } else {
+      this.registerInfor.rule = 0;
+      const form = this.createForm(this.registerInfor);
+      this.formErrorsRegister = this.checkValidate(form, this.formErrorsRegister);
+      this.validator.gotoError();
+      if (!this.checkError(this.formErrorsRegister)) {
+        this.newsService.showLoading(true);
+        this.newsService.createUser(this.registerInfor).subscribe((data: Response) => {
+          this.newsService.showLoading(false);
+          this.swal.success({ title: 'Create User Success' }).then(() => {
+            this.loginPage = true;
+          });
+          console.log(data);
+        }, error => {
+          this.swal.error({title: 'Error'}). then(() => {
+          });
+        });
+      }
     }
   }
 
@@ -108,19 +111,28 @@ export class Page01Component implements OnInit {
     return form;
   }
 
-  checkValidate(createTopicForm: FormGroup) {
+  createFormLogin(model: any) {
+    let form: FormGroup;
+    form = this.formBuilder.group({
+      'email': [model.email, [Validators.required, Validators.email]],
+      'password': [model.password, [Validators.required]],
+    });
+    return form;
+  }
+
+  checkValidate(createTopicForm: FormGroup, formError) {
     if (!createTopicForm) {
       return false;
     }
     const form = createTopicForm;
 
-    for (const field in this.formErrorsRegister) {
-      if (this.formErrorsRegister.hasOwnProperty(field)) {
-        this.formErrorsRegister[field] = '';
-        this.formErrorsRegister[field] = this.validator.validateForm(form, field, this.messageValidationError[field]);
+    for (const field in formError) {
+      if (formError.hasOwnProperty(field)) {
+        formError[field] = '';
+        formError[field] = this.validator.validateForm(form, field, this.messageValidationError[field]);
       }
     }
-    return this.formErrorsRegister;
+    return formError;
   }
 
   checkError(formErrors: any) {
@@ -130,5 +142,20 @@ export class Page01Component implements OnInit {
       }
     }
     return false;
+  }
+
+  resetError() {
+    this.loginInfo= new LoginInfo();
+    this.registerInfor= new RegisterInfo();
+    this.formErrors = {
+      email: '',
+      password: ''
+    };
+    this.formErrorsRegister = {
+      email: '',
+      password: '',
+      userName: ''
+    };
+    this.rePasswordError = '';
   }
 }

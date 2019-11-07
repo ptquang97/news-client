@@ -1,28 +1,58 @@
 <div class="container-fluid">
   <app-header></app-header>
-  <div class="col-12">
+  <div class="col-12 mt-5">
+    <div class="card mt-7">
+      <div class="card-header">
+        <h5>
+          Thêm bài viết
+        </h5>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Using Ckeditor in Angular</h5>
+            <h5 class="card-title">Tùy chỉnh</h5>
             <form (ngSubmit)="onSubmit()">
-              <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="vi"
-                         [fullPage]="true" config=""></ck-editor>
-              <button type="submit" class="btn btn-success">Create</button>
+              <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="vi" #ckeditor
+                         [fullPage]="false" [config]="config"></ck-editor>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="form-group mt-3">
+                    <span class="text-danger"></span>
+                    <input type="text" class="form-control" name="title" placeholder="Title" required="required">
+                  </div>
+                  <div class="form-group">
+                    <span class="text-danger"></span>
+                    <input type="text" class="form-control" name="shortIntro" placeholder="Short Intro" required="required">
+                  </div>
+                  <div class="form-group">
+                    <span class="text-danger"></span>
+                    <!--<l-select2 [ngModelOptions]="{standalone: true}" [options]="categoryOption" [(ngModel)]="selectedCategory"-->
+                               <!--(ngModelChange)="selectCategory()"-->
+                               <!--[data]="listCategory"></l-select2>-->
+                    <select class="form-control" id="category" >
+                    <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top" title="{{category.text}}">{{category.text}}
+                    </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success">Tạo bài viết</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Display value</h5>
-            <div [innerHTML]="editorValue"></div>
+          <div class="card-body show-content">
+            <h5 class="card-title border-bottom">Hiển thị</h5>
+            <div class="" [innerHTML]="editorValue"></div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

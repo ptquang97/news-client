@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {Http} from '@angular/http';
+import {NavigationEnd, Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {NewsService} from './services/news.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(
+    private newsService: NewsService) {
+  }
 }

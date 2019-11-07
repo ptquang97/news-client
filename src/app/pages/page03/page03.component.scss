@@ -1,0 +1,36 @@
+@import '../../../../src/styles';
+
+.mt-7 {
+  margin-top: 5rem;
+}
+
+.show-content {
+  min-height: 696px;
+}
+dt {
+  border-left: 10px solid #E1E0DF;
+  border-bottom: 1px solid #E1E0DF;
+  .label {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.select2:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.select2 {
+  .selection {
+    .select2-selection {
+      width: 38px;
+    }
+  }
+
+}
+

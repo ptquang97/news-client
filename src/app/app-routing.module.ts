@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {LogoutComponent} from './components/logout/logout.component';
 import {Page01Component} from './pages/page01/page01.component';
 import {Page02Component} from './pages/page02/page02.component';
 import {Page03Component} from './pages/page03/page03.component';
@@ -9,6 +10,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: Page01Component
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   {
     path: 'index',

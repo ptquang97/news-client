@@ -8,10 +8,12 @@
       </div>
       <h2 class="text-center">Member Login</h2>
       <div class="form-group">
+        <span class="text-danger" *ngIf="formErrors.email">{{formErrors.email}}</span>
         <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="loginInfo.email"
                required="required">
       </div>
       <div class="form-group">
+        <span class="text-danger" *ngIf="formErrors.password">{{formErrors.password}}</span>
         <input type="password" class="form-control" name="password" placeholder="Password"
                [(ngModel)]="loginInfo.password" required="required">
       </div>
@@ -23,11 +25,11 @@
         <a href="#" class="pull-right">Forgot Password?</a>
       </div>
     </form>
-    <p class="text-center small">Don't have an account? <a class="cursor-pointer" (click)="goToRegisterPage()">Sign up
+    <p class="text-center small">Don't have an account? <a class="cursor-pointer" (click)="goToRegisterPage(true)">Sign up
       here!</a></p>
   </div>
   <div class="login-form" *ngIf="!loginPage">
-    <form class="">
+    <form class="" autocomplete="off">
       <div class="lock-icon-wrap">
         <div class="lock-icon rounded-circle">
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
@@ -45,9 +47,14 @@
                required="required">
       </div>
       <div class="form-group">
-        <span class="text-danger" *ngIf="formErrorsRegister.password">{{formErrorsRegister.password}}</span>
+        <span class="text-danger" *ngIf="rePasswordError">{{rePasswordError}}</span>
+        <span class="text-danger" *ngIf="!rePasswordError && formErrorsRegister.password">{{formErrorsRegister.password}}</span>
         <input type="password" class="form-control" name="password" placeholder="Password"
                [(ngModel)]="registerInfor.password" required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password"
+               [(ngModel)]="rePassword" required="required">
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="createUser()">Sign Up</button>
@@ -57,6 +64,6 @@
         <a href="#" class="pull-right">Forgot Password?</a>
       </div>
     </form>
-    <p class="text-center small">Don't have an account? <a href="#">Sign up here!</a></p>
+    <p class="text-center small">Have an account? <a class="cursor-pointer" (click)="goToRegisterPage()">Sign in here!</a></p>
   </div>
 </div>

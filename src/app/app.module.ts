@@ -4,24 +4,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient , HttpClientModule} from '@angular/common/http';
-// import { LSelect2Module } from 'ngx-select2';
 import { Page01Component } from './pages/page01/page01.component';
 import {NewsService} from './services/news.service';
 import {Http, HttpModule} from '@angular/http';
 import {Validator} from './common/validator';
-import { CKEditorModule } from 'ngx-ckeditor';
-
+import { CKEditorModule } from '../../node_modules/ngx-ckeditor/lib/ck-editor.module';
+import { LSelect2Module } from 'ngx-select2';
 import { Page02Component } from './pages/page02/page02.component';
 import { HeaderComponent } from './components/header/header.component';
 import { Page03Component } from './pages/page03/page03.component';
-
+import { LogoutComponent } from './components/logout/logout.component';
+import { SweetAlertService } from 'ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
     Page01Component,
     Page02Component,
     HeaderComponent,
-    Page03Component
+    Page03Component,
+    LogoutComponent
   ],
   imports: [
     FormsModule,
@@ -30,12 +31,13 @@ import { Page03Component } from './pages/page03/page03.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    CKEditorModule
-    // LSelect2Module
+    CKEditorModule,
+    LSelect2Module
   ],
   providers: [
     NewsService,
-    Validator
+    Validator,
+    SweetAlertService
   ],
   bootstrap: [AppComponent]
 })

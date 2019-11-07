@@ -20,11 +20,17 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/select2/src/scss/core.scss",
+        "../node_modules/select2/dist/css/select2.min.css",
+        "../node_modules/sweetalert2/dist/sweetalert2.css",
         "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/select2/dist/js/select2.full.min.js",
+        "../node_modules/select2/dist/js/select2.min.js",
+        "../node_modules/sweetalert2/dist/sweetalert2.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
