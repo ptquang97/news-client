@@ -57,6 +57,7 @@ export class Page01Component implements OnInit {
         } else {
           this.newsService.isLogin = true;
           this.router.navigate(['']);
+          this.newsService.userInfo = data.body;
         }
         console.log(data);
       }, error => {

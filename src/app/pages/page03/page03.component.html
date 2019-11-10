@@ -9,44 +9,77 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12 mt-2">
+        <label class="cursor-pointer btn btn-success" for="img">Chọn ảnh xuất hiện trong bài viết</label>
+        <input #file type="file" multiple class="form-control mb-2" name="image" placeholder="Tải Ảnh"
+               (change)="selectImage($event)" accept="image/x-png,image/gif,image/jpeg" hidden id="img">
+      </div>
+    </div>
+    <ng-container *ngFor="let path of listImageUpload; let i=index">
+      <img class="cursor-pointer m-2" src="{{path}}" alt="{{path}}" title="{{path}}" width="100px" height="100px"
+           (click)="copyUrl(path)">
+    </ng-container>
+    <div class="row">
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Tùy chỉnh</h5>
-            <form (ngSubmit)="onSubmit()">
-              <ck-editor name="editor1" [(ngModel)]="editorValue" skin="moono-lisa" language="vi" #ckeditor
+            <form>
+              <ck-editor name="editor1" [(ngModel)]="newsInfo.content" skin="moono-lisa" language="vi" #ckeditor
                          [fullPage]="false" [config]="config"></ck-editor>
               <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-7">
+                  <div class="form-group mt-3">
+                    <label class="cursor-pointer btn btn-success" for="avatar">Chọn ảnh đại diện của bài viết</label>
+                    <br>
+                    <input type="file" class="form-control mb-2" name="avatar" placeholder="Tải Ảnh"
+                           (change)="selectAvatar($event)" accept="image/x-png,image/gif,image/jpeg" hidden id="avatar">
+                    <img *ngIf="newsInfo.image" class="m-2" src="{{newsInfo.image}}" alt="{{newsInfo.image}}" title="{{newsInfo.image}}" width="100px" height="100px">
+                  </div>
                   <div class="form-group mt-3">
                     <span class="text-danger"></span>
-                    <input type="text" class="form-control" name="title" placeholder="Title" required="required">
+                    <input type="text" class="form-control" name="title" placeholder="Title"
+                           [(ngModel)]="newsInfo.title" required="required">
                   </div>
                   <div class="form-group">
                     <span class="text-danger"></span>
-                    <input type="text" class="form-control" name="shortIntro" placeholder="Short Intro" required="required">
+                    <input type="text" class="form-control" name="shortIntro" placeholder="Short Intro"
+                           [(ngModel)]="newsInfo.short_intro"
+                           required="required">
                   </div>
                   <div class="form-group">
                     <span class="text-danger"></span>
-                    <!--<l-select2 [ngModelOptions]="{standalone: true}" [options]="categoryOption" [(ngModel)]="selectedCategory"-->
-                               <!--(ngModelChange)="selectCategory()"-->
-                               <!--[data]="listCategory"></l-select2>-->
-                    <select class="form-control" id="category" >
-                    <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top" title="{{category.category_name}}">{{category.category_name}}
-                    </option>
+                    <button class="btn btn-success" (click)="showModalCreateCategory(type.category)">Tạo Category
+                    </button>
+                    <select class="form-control mt-2" id="category" [(ngModel)]="newsInfo.category_id"
+                            name="category_name">
+                      <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top"
+                              title="{{category.category_name}}">{{category.category_name}}
+                      </option>
                     </select>
+                    <span class="text-danger mt-2" *ngIf="categoryError">{{categoryError}}</span>
+                    <input *ngIf="addCategory" type="text" class="form-control" [ngClass]="{'mt-2' : !categoryError}"
+                           [ngModelOptions]="{standalone: true}"
+                           placeholder="Điền category" required="required" [(ngModel)]="categoryName"
+                           (blur)="create(type.category)">
                   </div>
                   <div class="form-group">
+                    <button class="btn btn-success" (click)="showModalCreateTag(type.tag)">Tạo Tag</button>
                     <span class="text-danger"></span>
-                    <select class="form-control" id="tag">
-                    <option *ngFor="let tag of lisTag" value="{{ tag.id }}" data-placement="top" title="{{tag.tag_name}}">{{tag.tag_name}}
-                    </option>
+                    <select class="form-control mt-2" [(ngModel)]="newsInfo.tags_id" name="tag_name">
+                      <option *ngFor="let tag of lisTag" value="{{ tag.id }}" data-placement="top"
+                              title="{{tag.tag_name}}">{{tag.tag_name}}
+                      </option>
                     </select>
+                    <span class="text-danger mt-2" *ngIf="tagError && addTag">{{tagError}}</span>
+                    <input *ngIf="addTag" type="text" class="form-control" [ngClass]="{'mt-2' : !tagError}"
+                           name="newTag"
+                           placeholder="Điền Tag" required="required" [(ngModel)]="tagName" (blur)="create(type.tag)">
                   </div>
                 </div>
               </div>
               <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success">Tạo bài viết</button>
+                <button type="submit" class="btn btn-success" (click)="onSubmit()">Tạo bài viết</button>
               </div>
             </form>
           </div>
@@ -56,7 +89,7 @@
         <div class="card">
           <div class="card-body show-content">
             <h5 class="card-title border-bottom">Hiển thị</h5>
-            <div class="" [innerHTML]="editorValue"></div>
+            <div class="" [innerHTML]="newsInfo.content"></div>
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import {Domain} from '../common/domain';
 import {RegisterInfo} from '../models/register-info';
 import {NavigationEnd, Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {forEach} from '@angular/router/src/utils/collection';
+import {NewsCreateInfo} from '../models/news-create-info';
 
 declare const $: any;
 
@@ -16,6 +18,7 @@ export class NewsService {
   isLogin = false;
   url: string;
   userInfo: UserInfo;
+
   constructor(private http: Http,
               private router: Router,
               private location: Location
@@ -62,6 +65,7 @@ export class NewsService {
   }
 
   checkLogin(loginInfo: LoginInfo): Observable<any> {
+    console.log(loginInfo);
     return new Observable(observer => {
       this.http.post(Domain.domain + '/api/user/login', loginInfo)
         .subscribe((response: Response) => {
@@ -123,4 +127,73 @@ export class NewsService {
       });
     });
   }
+
+  createTag(tagName: string): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/tag/createTag', {tag_name: tagName})
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  createCategory(categoryName: string): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/category/createCategory', {category_name: categoryName})
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  creteNews(news: NewsCreateInfo): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/news/createNews', news)
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  uploadImage(image: any): Observable<any> {
+    const formData: FormData = new FormData();
+    for (let i = 0; i < image.length; i++) {
+      formData.append('image' + i, image[i], image[i].name);
+    }
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/news/uploadImage', formData)
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
 }

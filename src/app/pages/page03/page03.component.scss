@@ -5,7 +5,7 @@
 }
 
 .show-content {
-  min-height: 696px;
+  min-height: 540px;
 }
 dt {
   border-left: 10px solid #E1E0DF;
@@ -36,4 +36,8 @@ dt {
 
 option{
   height: 100px !important;
+}
+
+.hidden {
+  visibility: hidden;
 }
