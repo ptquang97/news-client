@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class Page02Component implements OnInit {
   newsLeft = [{}, {}, {}, {}, {}];
   newsRight = [{}, {}];
+  newsForUser = [{}, {}, {}, {}, {}, {}, {}, {}];
+  listCategory = [{}, {}, {}, {}, {}, {}, {}, {}];
   constructor() { }
 
   ngOnInit() {
