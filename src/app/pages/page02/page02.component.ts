@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page02.component.scss']
 })
 export class Page02Component implements OnInit {
-
+  newsLeft = [{}, {}, {}, {}, {}];
+  newsRight = [{}, {}];
   constructor() { }
 
   ngOnInit() {
