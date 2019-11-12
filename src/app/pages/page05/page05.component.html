@@ -11,13 +11,14 @@
         <section class="main">
           <div class="row">
             <div class="col-12 col-md-9 br-w">
-              <div [innerHTML]="newsInfo.content">
+              <div class="mb-2 border-b" [innerHTML]="newsInfo.content">
               </div>
-              <div class="col-12 col-md-6">
-                <div class="article-item d-flex">
+              <div class="col-12 col-md-9" style="max-height: 250px">
+                <span class="user-name mb-2">Bài liên quan</span>
+                <div class="article-item d-flex mt-3" style="max-height: 200px">
                   <p class="article-thumbnail mr-2">
                     <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
-                      <img height="170px"
+                      <img style="max-width: 400px; height: 200px;"
                            src="https://znews-photo.zadn.vn/w210/Uploaded/ngotgs/2019_11_11/Screen_Shot_20191111_at_110440_AM.jpg"
                            alt="Con trai lay do khong tra tien, bo danh nhan vien hinh anh">
                     </a>
@@ -29,6 +30,19 @@
 
                 </div>
               </div>
+              <div class="row mt-5">
+                <div class="col-12">
+                  <div class="comment-form">
+                    <div class="comment-editor">
+                      <textarea class="comment-input" id="form-872" name="comment"
+                                placeholder="Bạn nghĩ gì về tin này?" data-autosize-on="true"
+                                style="overflow: hidden; overflow-wrap: break-word; height: 80px; width: 100%"></textarea>
+                      <p class="editor-tool"><a class="btnEmoticon"><span class="ti-face-smile"></span></a></p></div>
+                    <button class="btn btn-primary">Gửi bình luận</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -42,7 +56,7 @@
             <div class="article-item d-flex mb-3">
               <p class="article-thumbnail mr-3" style="height: 180px;">
                 <a [routerLink]="['/news', item?.id]">
-                  <img height="170px" [src]="item?.image" alt="{{item?.title}}">
+                  <img height="170px" style="max-width: 330px" [src]="item?.image" alt="{{item?.title}}">
                 </a>
               </p>
               <div class="thumbnail-title">
