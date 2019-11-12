@@ -30,6 +30,5 @@ export class HeaderComponent implements OnInit {
 
   goToNews(categoryId) {
     this.router.navigate(['page', categoryId]);
-
   }
 }

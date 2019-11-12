@@ -1,0 +1,58 @@
+@import "../page02/page02.component";
+.section {
+  margin-bottom: 20px;
+  display: block;
+  position: relative;
+  float: left;
+  h2, h3 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .section-content {
+    min-height: 600px;
+    position: relative;
+    width: 100%;
+    float: left;
+  }
+}
+.article-list {
+  float: left;
+  width: 100%;
+}
+
+.the-article-category {
+  text-transform: uppercase;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 1em;
+  font-weight: 300;
+  a {
+    color: #888;
+  }
+}
+
+.the-article-title {
+  //font-family: 'Noto Serif', serif;
+  font-size: 2.6em;
+  color: #000;
+  line-height: 1.2;
+  letter-spacing: -1px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.the-article-meta {
+  padding-left: 3px;
+  margin: 15px 0 8px;
+  float: left;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 0.85em;
+  color: #888;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #222222
+}

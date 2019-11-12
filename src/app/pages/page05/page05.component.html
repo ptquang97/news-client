@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="container mt-6">
+    <ng-container *ngIf="newsInfo">
+      <section id="category-header" class="section">
+        <p class="the-article-category">
+          <a [routerLink]="['/page', categoryInfo?.id]" title="{{categoryInfo?.category_name}}">{{categoryInfo?.category_name}}</a>
+        </p>
+        <h1 class="the-article-title">{{newsInfo?.title}}</h1>
+        <span class="the-article-meta"><span class="user-name">{{userInfo?.userName}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
+        <section class="main">
+          <div class="row">
+            <div class="col-12 col-md-9 br-w">
+              <div [innerHTML]="newsInfo.content">
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="article-item d-flex">
+                  <p class="article-thumbnail mr-2">
+                    <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
+                      <img height="170px"
+                           src="https://znews-photo.zadn.vn/w210/Uploaded/ngotgs/2019_11_11/Screen_Shot_20191111_at_110440_AM.jpg"
+                           alt="Con trai lay do khong tra tien, bo danh nhan vien hinh anh">
+                    </a>
+                  </p>
+                  <p class="thumbnail-title">
+                    <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">Con trai lấy đồ không
+                      trả
+                      tiền, bố đánh nhân viên</a></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="section mt-4">
+        <header class="section-title">
+          <h3>Mới Nhất</h3>
+        </header>
+        <div class="news-for-you col-12 col-md-10 col-xl-9">
+          <ng-container *ngFor="let item of listNews">
+            <div class="article-item d-flex mb-3">
+              <p class="article-thumbnail mr-3" style="height: 180px;">
+                <a [routerLink]="['/news', item?.id]">
+                  <img height="170px" [src]="item?.image" alt="{{item?.title}}">
+                </a>
+              </p>
+              <div class="thumbnail-title">
+                <a [routerLink]="['/news', item?.id]">{{item?.title}}</a>
+                <div style="margin-top: -17px">
+                  <span class="time">{{item?.updated_at}}<span
+                    class="category ml-2">{{categoryInfo?.category_name}}</span></span>
+                </div>
+                <div>
+                  <p class="short-title">{{item?.short_intro}}</p>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+
+</div>
