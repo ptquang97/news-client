@@ -6,135 +6,91 @@
         <a href="/thoi-su.html">Thời sự</a>
       </h2>
     </section>
-    <section class="section">
-      <div class="section-content">
-        <div class="row">
-          <div class="col-12 col-md-5">
-            <div class="article-list multimedia-layout">
-              <div class="article-item type-picture type-hasvideo picked-multi short">
-                <p class="thumbnail">
-                  <a href="/cong-phuong-tap-cung-quang-hai-khi-vua-hoi-quan-post1012089.html">
-                    <img src="https://znews-photo.zadn.vn/w660/Uploaded/natmrb/2019_11_11/NGO_7644.jpg" class=" unveil">
+    <ng-container *ngIf="firstNews">
+      <section class="section">
+        <div class="section-content">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="article-list multimedia-layout">
+                <div class="article-item type-picture type-hasvideo picked-multi short">
+                  <p class="thumbnail">
+                    <a href="/cong-phuong-tap-cung-quang-hai-khi-vua-hoi-quan-post1012089.html">
+                      <img [src]="firstNews?.image" class=" unveil" alt="{{firstNews?.title}}">
+                    </a>
+                  </p>
+                  <header>
+                    <p class="article-title" style="font-size: 26px">
+                      <a
+                        href="/cong-phuong-tap-cung-quang-hai-khi-vua-hoi-quan-post1012089.html">{{firstNews?.title}}</a>
+                    </p>
+                  </header>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="article-item">
+                <p class="article-thumbnail">
+                  <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
+                    <img [src]="secondNews?.image" alt="{{secondNews?.title}}" class="photo">
                   </a>
                 </p>
                 <header>
-                  <p class="article-title" style="font-size: 26px">
-                    <a href="/cong-phuong-tap-cung-quang-hai-khi-vua-hoi-quan-post1012089.html">Công Phượng tập cùng
-                      Quang
-                      Hải khi vừa hội quân</a>
+                  <p class="article-title">
+                    <a style="word-break: break-word"
+                       href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">{{secondNews?.title}}</a>
                   </p>
                 </header>
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-3">
-            <div class="article-item">
-              <p class="article-thumbnail">
-                <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
-                  <img
-                    src="https://znews-photo.zadn.vn/w480/Uploaded/unvjuas/2019_11_11/74477095_2860351493975432_1762377797700943872_o_1.jpg"
-                    class="photo">
-                </a>
-              </p>
-              <header>
-                <p class="article-title">
-                  <a style="word-break: break-word"
-                     href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">Con gái mũm mĩm của
-                    Thảo Trang và Phan Thanh Bình </a>
-                </p>
-              </header>
-            </div>
+          <div class="row">
+            <ng-container *ngFor="let item of listNewsSecond">
+              <div class="col-12 col-md-3">
+                <div class="article-item">
+                  <p class="article-thumbnail">
+                    <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
+                      <img [src]="item?.image" alt="{{item?.title}}" class="photo">
+                    </a>
+                  </p>
+                  <header>
+                    <p class="article-title">
+                      <a style="word-break: break-word"
+                         href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">{{item.title}}</a>
+                    </p>
+                  </header>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 col-md-3">
-            <div class="article-item">
-              <p class="article-thumbnail">
-                <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
-                  <img
-                    src="https://znews-photo.zadn.vn/w480/Uploaded/unvjuas/2019_11_11/74477095_2860351493975432_1762377797700943872_o_1.jpg"
-                    class="photo">
+      </section>
+      <section class="section mt-4">
+        <header class="section-title">
+          <h3>Mới Nhất</h3>
+        </header>
+        <div class="news-for-you col-12 col-md-10 col-xl-9">
+          <ng-container *ngFor="let item of listNews">
+            <div class="article-item d-flex mb-3">
+              <p class="article-thumbnail mr-3" style="height: 180px;">
+                <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
+                  <img height="170px" [src]="item?.image" alt="{{item?.title}}">
                 </a>
               </p>
-              <header>
-                <p class="article-title">
-                  <a style="word-break: break-word"
-                     href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">Con gái mũm mĩm của
-                    Thảo Trang và Phan Thanh Bình </a>
-                </p>
-              </header>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="article-item">
-              <p class="article-thumbnail">
-                <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
-                  <img
-                    src="https://znews-photo.zadn.vn/w480/Uploaded/unvjuas/2019_11_11/74477095_2860351493975432_1762377797700943872_o_1.jpg"
-                    class="photo">
-                </a>
-              </p>
-              <header>
-                <p class="article-title">
-                  <a style="word-break: break-word"
-                     href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">Con gái mũm mĩm của
-                    Thảo Trang và Phan Thanh Bình </a>
-                </p>
-              </header>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="article-item">
-              <p class="article-thumbnail">
-                <a href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">
-                  <img
-                    src="https://znews-photo.zadn.vn/w480/Uploaded/unvjuas/2019_11_11/74477095_2860351493975432_1762377797700943872_o_1.jpg"
-                    class="photo">
-                </a>
-              </p>
-              <header>
-                <p class="article-title">
-                  <a style="word-break: break-word"
-                     href="/con-gai-mum-mim-cua-thao-trang-va-phan-thanh-binh-post1012051.html">Con gái mũm mĩm của
-                    Thảo Trang và Phan Thanh Bình </a>
-                </p>
-              </header>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section mt-4">
-      <header class="section-title">
-        <h3>Mới Nhất</h3>
-      </header>
-      <div class="news-for-you col-12 col-md-10 col-xl-9">
-        <ng-container *ngFor="let item of listNews; let i=index">
-          <div class="article-item d-flex mb-3">
-            <p class="article-thumbnail mr-3" style="height: 180px;">
-              <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
-                <img height="170px"
-                     src="https://znews-photo.zadn.vn/w210/Uploaded/ngotgs/2019_11_11/Screen_Shot_20191111_at_110440_AM.jpg"
-                     alt="Con trai lay do khong tra tien, bo danh nhan vien hinh anh">
-              </a>
-            </p>
-            <div class="thumbnail-title">
-              <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">HLV Troussier chỉ ra điều
-                bóng
-                đá Việt Nam cần học Nhật Bản</a>
-              <div style="margin-top: -17px">
-                <span class="time">2 gio truoc<span class="category ml-2">the thao</span></span>
-              </div>
-              <div>
-                <p class="short-title">Thuyền trưởng của U19 Việt Nam từng có thời gian gắn bó với bóng đá Nhật Bản. Ông
-                  chỉ ra nguyên nhân chính giúp U19 Nhật Bản có sức mạnh vượt trội.</p>
+              <div class="thumbnail-title">
+                <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">{{item?.title}}</a>
+                <div style="margin-top: -17px">
+                  <span class="time">{{item?.updated_at}}<span class="category ml-2">the thao</span></span>
+                </div>
+                <div>
+                  <p class="short-title">{{item?.short_intro}}</p>
+                </div>
               </div>
             </div>
-          </div>
 
-        </ng-container>
-      </div>
-    </section>
+          </ng-container>
+        </div>
+      </section>
+    </ng-container>
   </div>
 
 </div>

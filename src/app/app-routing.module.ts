@@ -8,7 +8,7 @@ import {Page04Component} from './pages/page04/page04.component';
 // import {Page05Component} from './pages/page05/page05.component';
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: Page01Component
   },
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
     component: LogoutComponent
   },
   {
-    path: 'login',
+    path: 'a',
     component: Page02Component
   },
   {
