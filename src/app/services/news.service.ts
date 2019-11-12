@@ -23,21 +23,21 @@ export class NewsService {
               private router: Router,
               private location: Location
   ) {
-    router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
-        this.url = this.getUrl(event.url);
-        console.log(this.url);
-        console.log(this.isLogin);
-        if (!this.isLogin) {
-          this.router.navigate(['/login']);
-        } else {
-          if (this.url === '/login') {
-            // this.location.back();
-            this.router.navigate(['']);
-          }
-        }
-      }
-    });
+    // router.events.subscribe((event: any) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.url = this.getUrl(event.url);
+    //     console.log(this.url);
+    //     console.log(this.isLogin);
+    //     if (!this.isLogin) {
+    //       this.router.navigate(['/login']);
+    //     } else {
+    //       if (this.url === '/login') {
+    //         // this.location.back();
+    //         this.router.navigate(['']);
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   getUrl(url) {
@@ -193,6 +193,21 @@ export class NewsService {
         }, (error) => {
           observer.error(error);
         });
+    });
+  }
+
+  getNewsByCategory(categoryId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNewsByCategory/' + categoryId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
     });
   }
 

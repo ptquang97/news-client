@@ -16,6 +16,7 @@ import { Page03Component } from './pages/page03/page03.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SweetAlertService } from 'ngx-sweetalert2';
 import { ModalComponent } from './components/modal/modal.component';
+import { Page04Component } from './pages/page04/page04.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { ModalComponent } from './components/modal/modal.component';
     HeaderComponent,
     Page03Component,
     LogoutComponent,
-    ModalComponent
+    ModalComponent,
+    Page04Component
   ],
   imports: [
     FormsModule,

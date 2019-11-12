@@ -1,0 +1,22 @@
+@import "../page02/page02.component";
+.section {
+  margin-bottom: 20px;
+  display: block;
+  position: relative;
+  float: left;
+  h2, h3 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .section-content {
+    min-height: 600px;
+    position: relative;
+    width: 100%;
+    float: left;
+  }
+}
+.article-list {
+  float: left;
+  width: 100%;
+}
