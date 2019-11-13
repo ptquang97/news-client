@@ -1,0 +1,38 @@
+footer {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin: 0 auto 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #888;
+  font-size: 12px;
+  background: #f7f7f7;
+  .page-wrapper {
+    margin-bottom: 70px;
+  }
+  .links {
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+    clear: both;
+    li {
+      display: inline-block;
+      padding: 0 10px;
+      border-right: 1px solid #ddd;
+      letter-spacing: 1px;
+    }
+  }
+}
+.info {
+  margin-top: 20px;
+  text-align: center;
+}

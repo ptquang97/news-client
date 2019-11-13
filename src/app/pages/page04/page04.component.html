@@ -3,7 +3,7 @@
   <div class="container mt-6">
     <section id="category-header" class="section">
       <h2>
-        <a [routerLink]="['/page', categoryInfo?.id]">{{categoryInfo?.category_name}}</a>
+        <a *ngIf="categoryInfo?.id" [routerLink]="['/page', categoryInfo?.id]">{{categoryInfo?.category_name}}</a>
       </h2>
     </section>
     <ng-container *ngIf="firstNews">
@@ -15,10 +15,10 @@
                 <div class="article-item type-picture type-hasvideo picked-multi short">
                   <p class="thumbnail">
                     <a [routerLink]="['/news', firstNews?.id]">
-                      <img [src]="firstNews?.image" class=" unveil" alt="{{firstNews?.title}}">
+                      <img (load)="loadeddata()" [src]="firstNews?.image" class="img-title" alt="{{firstNews?.title}}">
                     </a>
                   </p>
-                  <header>
+                  <header style="width: 100%" [ngClass]="{'backgroud-header' : loaded}">
                     <p class="article-title" style="font-size: 26px">
                       <a
                         [routerLink]="['/news', firstNews?.id]">{{firstNews?.title}}</a>
@@ -71,9 +71,9 @@
         <div class="news-for-you col-12 col-md-10 col-xl-9">
           <ng-container *ngFor="let item of listNews">
             <div class="article-item d-flex mb-3">
-              <p class="article-thumbnail mr-3" style="height: 180px;">
+              <p class="article-thumbnail mr-3" style="height: 180px; max-width: 330px; min-width: 130px">
                 <a [routerLink]="['/news', item?.id]">
-                  <img height="170px" style="max-width: 330px" [src]="item?.image" alt="{{item?.title}}">
+                  <img style="max-width: 330px; height: 170px" [src]="item?.image" alt="{{item?.title}}">
                 </a>
               </p>
               <div class="thumbnail-title">
@@ -94,3 +94,4 @@
   </div>
 
 </div>
+<app-footer [show]="firstNews"></app-footer>

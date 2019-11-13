@@ -6,10 +6,11 @@ import {Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {HttpStatus} from '../common/http-status';
 import {Domain} from '../common/domain';
 import {RegisterInfo} from '../models/register-info';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {forEach} from '@angular/router/src/utils/collection';
 import {NewsCreateInfo} from '../models/news-create-info';
+import {CommentCreateInfo, CommentInfo} from '../models/comment-info';
 
 declare const $: any;
 
@@ -18,26 +19,44 @@ export class NewsService {
   isLogin = false;
   url: string;
   userInfo: UserInfo;
-
+  isFirstRouteConfigLoad = false;
   constructor(private http: Http,
               private router: Router,
               private location: Location
   ) {
-    // router.events.subscribe((event: any) => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.url = this.getUrl(event.url);
-    //     console.log(this.url);
-    //     console.log(this.isLogin);
-    //     if (!this.isLogin) {
-    //       this.router.navigate(['/login']);
-    //     } else {
-    //       if (this.url === '/login') {
-    //         // this.location.back();
-    //         this.router.navigate(['']);
-    //       }
-    //     }
-    //   }
-    // });
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    };
+    router.events.subscribe((event: any) => {
+      if (event instanceof RouteConfigLoadStart) {
+        if (this.isFirstRouteConfigLoad) {
+         this.showLoading(true);
+        }
+      }
+      if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+        // this.url = this.getUrl(event.url);
+        // console.log(this.url);
+        // console.log(this.isLogin);
+        // if (!this.isLogin) {
+        //   this.router.navigate(['/login']);
+        // } else {
+        //   if (this.url === '/login') {
+        //     // this.location.back();
+        //     this.router.navigate(['']);
+        //   }
+        // }
+      }
+      if (event instanceof RouteConfigLoadEnd) {
+        if (this.isFirstRouteConfigLoad) {
+          this.showLoading(false);
+        } else {
+          this.isFirstRouteConfigLoad = true;
+        }
+      }
+      window.scrollTo(0, 0);
+
+    });
   }
 
   getUrl(url) {
@@ -56,11 +75,11 @@ export class NewsService {
     if (flag) {
       setTimeout(() => {
         $('#loading').addClass('loader');
-      });
+      }, 300);
     } else {
       setTimeout(() => {
         $('.loader').fadeOut('slow');
-      });
+      }, 300);
     }
   }
 
@@ -241,4 +260,64 @@ export class NewsService {
     });
   }
 
+  getUserInfo(userId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/user/getProfile/' + userId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  createComment(comment: CommentCreateInfo): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/comment/createComment', comment)
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  getComment(newsId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/comment/getComment/' + newsId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getNews(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNews').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
 }

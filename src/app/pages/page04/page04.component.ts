@@ -19,13 +19,13 @@ export class Page04Component implements OnInit {
   secondNews: NewsInfo;
   categoryId: string;
   categoryInfo: CategoryInfo;
+  loaded: boolean;
   constructor(private activatedRoute: ActivatedRoute,
               private newsService: NewsService) {
 
   }
 
   ngOnInit() {
-    console.log('aaaaa');
     this.activatedRoute.params
       .subscribe(params => {
         this.categoryId = params['categoryId'];
@@ -41,7 +41,6 @@ export class Page04Component implements OnInit {
     this.newsService.getNewsByCategory(this.categoryId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
       this.firstNews = res.body[0];
-      console.log(this.firstNews);
       this.secondNews = res.body[1];
       for (let i = 2; i < res.body.length; i++) {
         if (i < 5) {
@@ -61,7 +60,6 @@ export class Page04Component implements OnInit {
           this.listNews.push(res.body[i]);
         }
       }
-      console.log(this.listNews);
     }, error => {
       this.newsService.showLoading(false);
 
@@ -76,4 +74,9 @@ export class Page04Component implements OnInit {
     });
   }
 
+  loadeddata() {
+    setTimeout(() => {
+      this.loaded = true;
+    });
+  }
 }

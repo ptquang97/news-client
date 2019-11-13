@@ -1,14 +1,17 @@
 @import "../page02/page02.component";
+
 .section {
   margin-bottom: 20px;
   display: block;
   position: relative;
   float: left;
+
   h2, h3 {
     font-size: 32px;
     font-weight: bold;
     text-transform: uppercase;
   }
+
   .section-content {
     min-height: 600px;
     position: relative;
@@ -16,6 +19,7 @@
     float: left;
   }
 }
+
 .article-list {
   float: left;
   width: 100%;
@@ -27,6 +31,7 @@
   letter-spacing: 1px;
   font-size: 1em;
   font-weight: 300;
+
   a {
     color: #888;
   }
@@ -55,4 +60,115 @@
 .user-name {
   font-weight: bold;
   color: #222222
+}
+
+.short-title {
+  margin-top: 10px;
+  word-break: break-word;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.comment-input {
+  overflow: hidden;
+  overflow-wrap: break-word;
+  height: 80px;
+  width: 100%
+}
+
+.comment-widget {
+  float: left;
+  width: 100%;
+  margin: 15px 0 0;
+  .comment-list {
+    float: left;
+    width: 100%;
+    padding: 25px 0 10px;
+    .list-header {
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      border-bottom: 1px solid #dddddd;
+      padding-bottom: 0;
+      .list-title {
+        font-size: 14px;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+    .comments {
+      float: left;
+      width: 100%;
+      margin: 0;
+      animation: fadeInImages 0.5s;
+
+      li:last-child {
+        border: 0;
+        padding-bottom: 0px;
+      }
+    }
+  }
+  .comment {
+    float: left;
+    width: 100%;
+    padding: 18px 0 0 40px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+
+    .comment-meta {
+      font-family: sans-serif;
+      font-size: 14px;
+      color: #141823;
+      line-height: 20px;
+      width: 100%;
+      float: left;
+      margin-bottom: 5px;
+
+      .author {
+        color: #000;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 19px;
+        display: inline-block;
+        margin-bottom: 0;
+        .author-name {
+          margin-right: 10px;
+        }
+        .time {
+          color: #666;
+          font-size: 11px;
+          display: inline-block;
+          font-weight: normal;
+          line-height: normal;
+        }
+      }
+      .comment-content {
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.43;
+      }
+    }
+
+    .avatar {
+      position: absolute;
+      top: 21px;
+      left: 0;
+    }
+  }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    background-size: cover;
+    border: 0;
+    display: inline-block;
+    margin-right: 10px;
+  }
 }
