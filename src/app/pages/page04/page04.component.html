@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <app-header></app-header>
-  <div class="container mt-6">
+  <div class="container mt-6" *ngIf="loadingDone">
     <section id="category-header" class="section">
       <h2>
         <a *ngIf="categoryInfo?.id" [routerLink]="['/page', categoryInfo?.id]">{{categoryInfo?.category_name}}</a>
       </h2>
     </section>
-    <ng-container *ngIf="firstNews">
+    <ng-container>
       <section class="section">
         <div class="section-content">
           <div class="row">
@@ -15,7 +15,7 @@
                 <div class="article-item type-picture type-hasvideo picked-multi short">
                   <p class="thumbnail">
                     <a [routerLink]="['/news', firstNews?.id]">
-                      <img (load)="loadeddata()" [src]="firstNews?.image" class="img-title" alt="{{firstNews?.title}}">
+                      <img (load)="loadedData()" [src]="firstNews?.image" class="img-title" alt="{{firstNews?.title}}">
                     </a>
                   </p>
                   <header style="width: 100%" [ngClass]="{'backgroud-header' : loaded}">
@@ -94,4 +94,4 @@
   </div>
 
 </div>
-<app-footer [show]="firstNews"></app-footer>
+<app-footer [show]="loadingDone"></app-footer>

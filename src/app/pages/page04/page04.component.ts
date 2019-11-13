@@ -19,7 +19,9 @@ export class Page04Component implements OnInit {
   secondNews: NewsInfo;
   categoryId: string;
   categoryInfo: CategoryInfo;
-  loaded: boolean;
+  loadingDone = false;
+  loaded = false;
+
   constructor(private activatedRoute: ActivatedRoute,
               private newsService: NewsService) {
 
@@ -40,6 +42,9 @@ export class Page04Component implements OnInit {
     this.newsService.showLoading(true);
     this.newsService.getNewsByCategory(this.categoryId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
+      setTimeout(() => {
+        this.loadingDone = true;
+      }, 500);
       this.firstNews = res.body[0];
       this.secondNews = res.body[1];
       for (let i = 2; i < res.body.length; i++) {
@@ -74,7 +79,7 @@ export class Page04Component implements OnInit {
     });
   }
 
-  loadeddata() {
+  loadedData() {
     setTimeout(() => {
       this.loaded = true;
     });

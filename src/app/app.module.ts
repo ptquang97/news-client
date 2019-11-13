@@ -19,6 +19,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { Page04Component } from './pages/page04/page04.component';
 import { Page05Component } from './pages/page05/page05.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {LocalStorage} from './services/local-storage.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { FooterComponent } from './components/footer/footer.component';
   providers: [
     NewsService,
     Validator,
-    SweetAlertService
+    SweetAlertService,
+    LocalStorage
   ],
   bootstrap: [AppComponent]
 })

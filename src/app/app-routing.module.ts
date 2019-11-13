@@ -16,11 +16,11 @@ const routes: Routes = [
     component: LogoutComponent
   },
   {
-    path: 'a',
+    path: '',
     component: Page02Component
   },
   {
-    path: '',
+    path: 'admin',
     component: Page03Component
   },
   {

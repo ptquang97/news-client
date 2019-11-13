@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {UserInfo} from '../../models/user-info';
 import {CommentCreateInfo, CommentInfo} from '../../models/comment-info';
 import {SweetAlertService} from 'ngx-sweetalert2/src/index';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-page05',
@@ -25,6 +26,7 @@ export class Page05Component implements OnInit {
   relatedNews: NewsInfo;
   commentInfo: CommentCreateInfo;
   listComment: CommentInfo[];
+
   constructor(private activatedRoute: ActivatedRoute,
               private newsService: NewsService,
               private swal: SweetAlertService) {
@@ -109,9 +111,29 @@ export class Page05Component implements OnInit {
 
   getComment() {
     this.newsService.getComment(this.newsId).subscribe((res: ApiResponse) => {
+      for (let i = 0; i < res.body.length; i++) {
+        const dateNow = moment();
+        // const updatedDate = moment(res.body[i].updated_at);
+        const updatedDate = moment(res.body[i].updated_at);
+        const duration = moment.duration(dateNow.diff(updatedDate));
+        const second = new DecimalPipe('en-US').transform(duration.asSeconds(), '1.0-0');
+        const minute = new DecimalPipe('en-US').transform(duration.asMinutes(), '1.0-0');
+        const hours = new DecimalPipe('en-US').transform(duration.asHours(), '1.0-0');
+        if (Number(second) < 60) {
+          res.body[i].time = second + ' giây trước';
+        } else if (Number(minute) < 60) {
+          res.body[i].time = minute + ' phút trước';
+        } else if (Number(hours) < 24) {
+          res.body[i].time = hours + ' giờ trước';
+        } else {
+          res.body[i].time = moment(res.body[i].updated_at).format('dd-mm-yyyy HH:mm');
+        }
+      }
       this.listComment = res.body;
-
     }, error => {
+      this.swal.alert({title: 'Đã xảy ra lỗi'}).then(() => {
+
+      });
     });
   }
 

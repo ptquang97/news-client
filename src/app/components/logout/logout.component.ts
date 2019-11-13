@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../../services/news.service';
 import {Router} from '@angular/router';
+import {LocalStorage} from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-logout',
@@ -10,11 +11,12 @@ import {Router} from '@angular/router';
 export class LogoutComponent implements OnInit {
 
   constructor(private newsService: NewsService,
-              private router: Router) { }
+              private router: Router,
+              private localStorage: LocalStorage) { }
 
   ngOnInit() {
-    this.newsService.isLogin = false;
-    this.router.navigate(['/login']);
+    this.localStorage.remove('currentUser');
+    this.router.navigate(['']);
   }
 
 }

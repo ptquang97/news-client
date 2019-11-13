@@ -14,12 +14,14 @@ export class CommentInfo extends CommentCreateInfo{
   created_at: string;
   updated_at: string;
   user_name: string;
+  time: string;
 
-  constructor(comment: string, user_id: string, news_id: number, id: string, created_at: string, updated_at: string, user_name: string) {
+  constructor(comment: string, user_id: string, news_id: number, id: string, created_at: string, updated_at: string, user_name: string, time: string) {
     super(comment, user_id, news_id);
     this.id = id;
     this.created_at = created_at;
     this.updated_at = updated_at;
     this.user_name = user_name;
+    this.time = time;
   }
 }

@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse justify-content-between ml-5" id="nav">
     <ul class="navbar-nav">
       <li class="nav-item cursor-pointer">
-        <a class="nav-link text-light font-weight-bold px-3"><i class="fa fa-home mr-2" aria-hidden="true"></i>HOME</a>
+        <a class="nav-link text-light font-weight-bold px-3" [routerLink]="['']"><i class="fa fa-home mr-2" aria-hidden="true"></i>Trang chủ</a>
       </li>
       <ng-container *ngFor="let item of listCategory">
       <li class="nav-item dropdown cursor-pointer" data-toggle="dropdown">
@@ -16,9 +16,12 @@
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item dropdown cursor-pointer" data-toggle="dropdown">
-        <a class="nav-link text-light font-weight-bold px-3 dropdown-toggle"><i class="fa fa-user-o mr-2" aria-hidden="true"></i>Account</a>
+        <a class="nav-link text-light font-weight-bold px-3 dropdown-toggle fs14 mr-2"><i class="fa fa-user-o mr-2" aria-hidden="true"></i>{{userInfo? userInfo?.userName : 'Tài khoản'}}</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" [routerLink]="['/logout']">Logout</a>
+          <a class="dropdown-item fs14" [routerLink]="['/logout']" *ngIf="userInfo">Đăng xuất</a>
+          <a class="dropdown-item fs14" [routerLink]="['/login']" *ngIf="!userInfo">Đăng nhập</a>
+          <a class="dropdown-item fs14" [routerLink]="['/admin']" *ngIf="userInfo">Thêm bài viết</a>
+          <a class="dropdown-item fs14" [routerLink]="['/admin']" *ngIf="userInfo">Quản lý bài viết</a>
         </div>
       </li>
     </ul>
