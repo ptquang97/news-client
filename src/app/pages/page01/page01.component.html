@@ -6,7 +6,7 @@
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
         </div>
       </div>
-      <h2 class="text-center">Member Login</h2>
+      <h2 class="text-center">Form Đăng Nhập</h2>
       <div class="form-group">
         <span class="text-danger" *ngIf="formErrors.email">{{formErrors.email}}</span>
         <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="loginInfo.email"
@@ -18,15 +18,15 @@
                [(ngModel)]="loginInfo.password" required="required">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="checkLogin()">Sign in</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="checkLogin()">Đăng nhập</button>
       </div>
       <div class="clearfix">
-        <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-        <a href="#" class="pull-right">Forgot Password?</a>
+        <label class="pull-left checkbox-inline"><input type="checkbox"> Ghi Nhớ</label>
+        <a href="#" class="pull-right">Quên tài khoản?</a>
       </div>
     </form>
-    <p class="text-center small">Don't have an account? <a class="cursor-pointer" (click)="goToRegisterPage(true)">Sign up
-      here!</a></p>
+    <p class="text-center small">Chưa có tài khoản? <a class="cursor-pointer" (click)="goToRegisterPage(true)">Đăng kí
+      tại đây!</a></p>
   </div>
   <div class="login-form" *ngIf="!loginPage">
     <form class="" autocomplete="off">
@@ -35,7 +35,7 @@
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
         </div>
       </div>
-      <h2 class="text-center">Create Account</h2>
+      <h2 class="text-center">Tạo tài khoản</h2>
       <div class="form-group">
         <span class="text-danger" *ngIf="formErrorsRegister.userName">{{formErrorsRegister.userName}}</span>
         <input type="text" class="form-control" name="userName" placeholder="User Name"
@@ -57,13 +57,14 @@
                [(ngModel)]="rePassword" required="required">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="createUser()">Sign Up</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="createUser()">Đăng kí</button>
       </div>
       <div class="clearfix">
-        <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-        <a href="#" class="pull-right">Forgot Password?</a>
+        <label class="pull-left checkbox-inline"><input type="checkbox"> Ghi nhớ</label>
+        <a href="#" class="pull-right">Quên mật khẩu?</a>
       </div>
     </form>
-    <p class="text-center small">Have an account? <a class="cursor-pointer" (click)="goToRegisterPage()">Sign in here!</a></p>
+    <p class="text-center small">Đã có tài khoản? <a class="cursor-pointer" (click)="goToRegisterPage()">Đăng nhập tại
+      đây!</a></p>
   </div>
 </div>

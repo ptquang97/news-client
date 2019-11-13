@@ -8,6 +8,8 @@ import {RegisterInfo} from '../../models/register-info';
 import {Validator} from '../../common/validator';
 import {Router} from '@angular/router';
 import { SweetAlertService } from 'ngx-sweetalert2';
+import {LocalStorage} from '../../services/local-storage.service';
+
 @Component({
   selector: 'app-page01',
   templateUrl: './page01.component.html',
@@ -37,6 +39,7 @@ export class Page01Component implements OnInit {
               private formBuilder: FormBuilder,
               private validator: Validator,
               private router: Router,
+              private localStorage: LocalStorage,
               private swal: SweetAlertService) { }
 
   ngOnInit() {
@@ -55,9 +58,8 @@ export class Page01Component implements OnInit {
         } else if (data.msg === 'Invalid Password') {
           this.formErrors.password = 'Password invalid';
         } else {
-          this.newsService.isLogin = true;
           this.router.navigate(['']);
-          this.newsService.userInfo = data.body;
+          this.localStorage.setObject('currentUser', data.body);
         }
         console.log(data);
       }, error => {

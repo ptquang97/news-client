@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="container mt-6">
+    <ng-container *ngIf="newsInfo">
+      <section id="category-header" class="section">
+        <p class="the-article-category">
+          <a *ngIf="categoryInfo?.id" [routerLink]="['/page', categoryInfo?.id]"
+             title="{{categoryInfo?.category_name}}">{{categoryInfo?.category_name}}</a>
+        </p>
+        <h1 class="the-article-title">{{newsInfo?.title}}</h1>
+        <span class="the-article-meta"><span
+          class="user-name">{{userCreated?.userName}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
+        <section class="main">
+          <div class="row">
+            <div class="col-12 col-md-9 br-w">
+              <div class="mb-2 border-b" [innerHTML]="newsInfo.content">
+              </div>
+              <div class="col-12 col-md-11" style="max-height: 250px">
+                <span class="user-name mb-2">Bài liên quan</span>
+                <div class="article-item d-flex mt-3" style="max-height: 200px">
+                  <p class="article-thumbnail mr-2">
+                    <a *ngIf="relatedNews?.id" [routerLink]="['/news', relatedNews?.id]" title="{{relatedNews?.title}}">
+                      <img style="max-width: 400px; height: 200px;"
+                           [src]="relatedNews?.image" alt="{{relatedNews?.title}}">
+                    </a>
+                  </p>
+                  <div class="thumbnail-title">
+                    <a *ngIf="relatedNews?.id" [routerLink]="['/news', relatedNews?.id]"
+                       title="{{relatedNews?.title}}">{{relatedNews?.title}}</a>
+                    <div>
+                      <p class="short-title">{{relatedNews?.short_intro}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col-12 comment-widget">
+                  <div class="comment-form">
+                    <div class="comment-editor">
+                      <textarea class="comment-input" name="comment"
+                                placeholder="Bạn nghĩ gì về tin này? Đăng nhập để gửi bình luận" data-autosize-on="true"
+                                [(ngModel)]="commentInfo.comment"
+                      ></textarea>
+                      <p class="editor-tool"><a class="btnEmoticon"><span class="ti-face-smile"></span></a></p></div>
+                    <button class="btn btn-primary" (click)="sentComment()">Gửi bình luận</button>
+                  </div>
+                  <div class="comment-list" *ngIf="listComment?.length > 0">
+                    <div class="list-header"><h4 class="list-title"> Ý kiến bạn đọc (<strong>{{listComment.length}}</strong>)</h4>
+                    </div>
+                    <ul class="comments">
+                      <ng-container *ngFor="let item of listComment;">
+                      <li class="comment cmt-0">
+                        <div class="comment-meta">
+                          <img class="avatar"
+                               src="http://localhost/news-server/storage/app/photos/user.jpg"
+                                [alt]="item?.user_name">
+                          <p class="author"><span class="author-name">{{item?.user_name}}</span><span
+                            class="time">{{item?.time}}</span></p>
+                          <p class="comment-content">{{item?.comment}}</p>
+                        </div>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section class="section mt-4">
+        <header class="section-title">
+          <h3>Mới Nhất</h3>
+        </header>
+        <div class="news-for-you col-12 col-md-10 col-xl-9">
+          <ng-container *ngFor="let item of listNews">
+            <div class="article-item d-flex mb-3">
+              <p class="article-thumbnail mr-3" style="height: 180px; max-width: 330px;  min-width: 130px">
+                <a [routerLink]="['/news', item?.id]">
+                  <img style="max-width: 330px; height: 170px" [src]="item?.image" alt="{{item?.title}}">
+                </a>
+              </p>
+              <div class="thumbnail-title">
+                <a [routerLink]="['/news', item?.id]">{{item?.title}}</a>
+                <div style="margin-top: -17px">
+                  <span class="time">{{item?.updated_at}}<span
+                    class="category ml-2">{{categoryInfo?.category_name}}</span></span>
+                </div>
+                <div>
+                  <p class="short-title">{{item?.short_intro}}</p>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+
+</div>
+<app-footer [show]="newsInfo"></app-footer>

@@ -6,37 +6,59 @@ import {Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {HttpStatus} from '../common/http-status';
 import {Domain} from '../common/domain';
 import {RegisterInfo} from '../models/register-info';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {forEach} from '@angular/router/src/utils/collection';
 import {NewsCreateInfo} from '../models/news-create-info';
+import {CommentCreateInfo, CommentInfo} from '../models/comment-info';
+import {LocalStorage} from './local-storage.service';
+import {CategoryInfo} from '../models/category-info';
 
 declare const $: any;
 
 @Injectable()
 export class NewsService {
-  isLogin = false;
   url: string;
   userInfo: UserInfo;
-
+  isFirstRouteConfigLoad = false;
+  listCategory: CategoryInfo[];
   constructor(private http: Http,
               private router: Router,
-              private location: Location
+              private location: Location,
+              private localStorage: LocalStorage
   ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
     router.events.subscribe((event: any) => {
+      if (event.error) {
+        this.router.navigate(['']);
+      }
+      // if (event instanceof RouteConfigLoadStart) {
+      //   if (this.isFirstRouteConfigLoad) {
+      //     this.showLoading(true);
+      //   }
+      // }
       if (event instanceof NavigationEnd) {
+        this.router.navigated = false;
+        this.userInfo = this.localStorage.getObject('currentUser');
         this.url = this.getUrl(event.url);
-        console.log(this.url);
-        console.log(this.isLogin);
-        if (!this.isLogin) {
-          this.router.navigate(['/login']);
-        } else {
+        if (this.userInfo) {
           if (this.url === '/login') {
             // this.location.back();
             this.router.navigate(['']);
           }
         }
       }
+      // if (event instanceof RouteConfigLoadEnd) {
+      //   if (this.isFirstRouteConfigLoad) {
+      //     this.showLoading(false);
+      //   } else {
+      //     this.isFirstRouteConfigLoad = true;
+      //   }
+      // }
+      window.scrollTo(0, 0);
+
     });
   }
 
@@ -56,11 +78,11 @@ export class NewsService {
     if (flag) {
       setTimeout(() => {
         $('#loading').addClass('loader');
-      });
+      }, 500);
     } else {
       setTimeout(() => {
         $('.loader').fadeOut('slow');
-      });
+      }, 500);
     }
   }
 
@@ -196,4 +218,109 @@ export class NewsService {
     });
   }
 
+  getNewsByCategory(categoryId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNewsByCategory/' + categoryId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getCategoryInfo(categoryId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/category/getCategoryInfo/' + categoryId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getNewsInfo(newsId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNewsInfo/' + newsId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getUserInfo(userId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/user/getProfile/' + userId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  createComment(comment: CommentCreateInfo): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(Domain.domain + '/api/comment/createComment', comment)
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  getComment(newsId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/comment/getComment/' + newsId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getNews(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNews').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
 }

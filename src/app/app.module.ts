@@ -16,6 +16,10 @@ import { Page03Component } from './pages/page03/page03.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SweetAlertService } from 'ngx-sweetalert2';
 import { ModalComponent } from './components/modal/modal.component';
+import { Page04Component } from './pages/page04/page04.component';
+import { Page05Component } from './pages/page05/page05.component';
+import { FooterComponent } from './components/footer/footer.component';
+import {LocalStorage} from './services/local-storage.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,10 @@ import { ModalComponent } from './components/modal/modal.component';
     HeaderComponent,
     Page03Component,
     LogoutComponent,
-    ModalComponent
+    ModalComponent,
+    Page04Component,
+    Page05Component,
+    FooterComponent
   ],
   imports: [
     FormsModule,
@@ -39,7 +46,8 @@ import { ModalComponent } from './components/modal/modal.component';
   providers: [
     NewsService,
     Validator,
-    SweetAlertService
+    SweetAlertService,
+    LocalStorage
   ],
   bootstrap: [AppComponent]
 })
