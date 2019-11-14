@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <app-header></app-header>
+  <div class="container mt-6" *ngIf="loadingDone">
+    <ng-container>
+      <section class="section mt-4">
+        <header class="section-title">
+          <h3>Kết quả tìm kiếm cho từ khóa: </h3><strong style="font-size: 24px">{{keyWord}}</strong>
+        </header>
+        <div class="news-for-you col-12 col-md-10 col-xl-9">
+          <ng-container *ngFor="let item of listNews">
+            <div class="article-item d-flex mb-3">
+              <p class="article-thumbnail mr-3" style="height: 180px; max-width: 330px; min-width: 130px">
+                <a [routerLink]="['/news', item?.id]">
+                  <img style="max-width: 330px; height: 170px" [src]="item?.image" alt="{{item?.title}}">
+                </a>
+              </p>
+              <div class="thumbnail-title">
+                <a [routerLink]="['/news', item?.id]">{{item?.title}}</a>
+                <div style="margin-top: -17px">
+                  <span class="time">{{item?.updated_at}}<span class="category ml-2">{{categoryInfo?.category_name}}</span></span>
+                </div>
+                <div>
+                  <p class="short-title">{{item?.short_intro}}</p>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+
+</div>
+<app-footer [show]="loadingDone"></app-footer>
