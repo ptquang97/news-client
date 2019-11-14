@@ -12,10 +12,10 @@ import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-page05',
-  templateUrl: './page05.component.html',
-  styleUrls: ['./page05.component.scss']
+  templateUrl: './news-detail.component.html',
+  styleUrls: ['./news-detail.component.scss']
 })
-export class Page05Component implements OnInit {
+export class NewsDetailComponent implements OnInit {
 
   listNews: NewsInfo[];
   listNewsSecond: NewsInfo[];
@@ -112,11 +112,17 @@ export class Page05Component implements OnInit {
   }
 
   sentComment() {
+    this.newsService.showLoading(true);
       this.newsService.createComment(this.commentInfo).subscribe((res: ApiResponse) => {
+        this.newsService.showLoading(false);
         this.commentInfo.comment = '';
         this.commentInfo.user_name = '';
+        this.swal.success({title: 'Bình luận thành công'}).then(() => {
+
+        });
         this.getComment();
       }, error => {
+        this.newsService.showLoading(false);
         this.swal.alert({title: 'Đã xảy ra lỗi'}).then(() => {
 
         });

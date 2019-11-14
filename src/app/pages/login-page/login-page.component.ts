@@ -12,10 +12,10 @@ import {LocalStorage} from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-page01',
-  templateUrl: './page01.component.html',
-  styleUrls: ['./page01.component.scss']
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.scss']
 })
-export class Page01Component implements OnInit {
+export class LoginPageComponent implements OnInit {
   loginInfo= new LoginInfo();
   registerInfor= new RegisterInfo();
   formErrors: any;

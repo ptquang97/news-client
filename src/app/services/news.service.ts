@@ -34,6 +34,7 @@ export class NewsService {
       return false;
     };
     router.events.subscribe((event: any) => {
+      window.scrollTo(0, 0);
       if (event.error) {
         this.router.navigate(['']);
       }
@@ -60,8 +61,6 @@ export class NewsService {
       //     this.isFirstRouteConfigLoad = true;
       //   }
       // }
-      window.scrollTo(0, 0);
-
     });
   }
 

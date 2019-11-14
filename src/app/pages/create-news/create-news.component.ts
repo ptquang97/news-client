@@ -6,15 +6,15 @@ import {CategoryInfo} from '../../models/category-info';
 import {SweetAlertService} from 'ngx-sweetalert2';
 import {NewsCreateInfo} from '../../models/news-create-info';
 import {Domain} from '../../common/domain';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewsInfo} from '../../models/news-info';
 
 @Component({
   selector: 'app-page03',
-  templateUrl: './page03.component.html',
-  styleUrls: ['./page03.component.scss']
+  templateUrl: './create-news.component.html',
+  styleUrls: ['./create-news.component.scss']
 })
-export class Page03Component implements OnInit {
+export class CreateNewsComponent implements OnInit {
   @ViewChild('ckeditor') ckeditor: ElementRef;
   config: any;
   tagOption: any;
@@ -34,7 +34,8 @@ export class Page03Component implements OnInit {
   changeNewsContent = false;
   constructor(private newsService: NewsService,
               private swal: SweetAlertService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.tagOption = {
       multiple: false,
       placeholder: 'Chọn Tag',
@@ -131,7 +132,7 @@ export class Page03Component implements OnInit {
     this.newsService.updateNews(this.newsInfo, this.newsId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
       this.swal.success({title: 'Chỉnh sửa viết thành công'}).then(() => {
-
+        this.router.navigate(['manage']);
       });
     }, error => {
       this.newsService.showLoading(false);

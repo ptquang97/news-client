@@ -9,10 +9,10 @@ import {CategoryInfo} from '../../models/category-info';
 
 @Component({
   selector: 'app-page04',
-  templateUrl: './page04.component.html',
-  styleUrls: ['./page04.component.scss']
+  templateUrl: './category-news.component.html',
+  styleUrls: ['./category-news.component.scss']
 })
-export class Page04Component implements OnInit {
+export class CategoryNewsComponent implements OnInit {
   listNews: NewsInfo[];
   listNewsSecond: NewsInfo[];
   firstNews: NewsInfo;

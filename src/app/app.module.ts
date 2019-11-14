@@ -4,36 +4,36 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient , HttpClientModule} from '@angular/common/http';
-import { Page01Component } from './pages/page01/page01.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 import {NewsService} from './services/news.service';
 import {Http, HttpModule} from '@angular/http';
 import {Validator} from './common/validator';
 import { CKEditorModule } from '../../node_modules/ngx-ckeditor/lib/ck-editor.module';
 import { LSelect2Module } from 'ngx-select2';
-import { Page02Component } from './pages/page02/page02.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
-import { Page03Component } from './pages/page03/page03.component';
+import { CreateNewsComponent } from './pages/create-news/create-news.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SweetAlertService } from 'ngx-sweetalert2';
 import { ModalComponent } from './components/modal/modal.component';
-import { Page04Component } from './pages/page04/page04.component';
-import { Page05Component } from './pages/page05/page05.component';
+import { CategoryNewsComponent } from './pages/category-news/category-news.component';
+import { NewsDetailComponent } from './pages/news-detail/news-detail.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {LocalStorage} from './services/local-storage.service';
-import { Page06Component } from './pages/page06/page06.component';
+import { ManagePageComponent } from './pages/manage-page/manage-page.component';
 @NgModule({
   declarations: [
     AppComponent,
-    Page01Component,
-    Page02Component,
+    LoginPageComponent,
+    HomePageComponent,
     HeaderComponent,
-    Page03Component,
+    CreateNewsComponent,
     LogoutComponent,
     ModalComponent,
-    Page04Component,
-    Page05Component,
+    CategoryNewsComponent,
+    NewsDetailComponent,
     FooterComponent,
-    Page06Component
+    ManagePageComponent
   ],
   imports: [
     FormsModule,

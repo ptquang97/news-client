@@ -9,10 +9,10 @@ import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-page02',
-  templateUrl: './page02.component.html',
-  styleUrls: ['./page02.component.scss']
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.scss']
 })
-export class Page02Component implements OnInit {
+export class HomePageComponent implements OnInit {
   middleNews: NewsInfo;
   firstMultiMedia: NewsInfo;
   listNewEachCategory: NewsInfo[];

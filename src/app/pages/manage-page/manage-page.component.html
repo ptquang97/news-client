@@ -4,7 +4,9 @@
     <div class="card mt-7">
       <div class="card-header">
         <h5>
-          Quản lý bài viết
+          Quản lý bài viết <a title="Tạo Bài viết" class="btn btn-success float-right" [routerLink]="['/admin']">
+          Tạo bài viết
+        </a>
         </h5>
       </div>
     </div>
@@ -25,7 +27,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let item of news">
+                <tr *ngFor="let item of news; let i = index">
                   <td class="text-center">{{item.id}}</td>
                   <td class="text-center"><img [src]="item.image" alt="{{item.title}}" width="100px" height="100px">
                   </td>
@@ -36,7 +38,7 @@
                     <a title="Chỉnh sửa" class="btn btn-success" [routerLink]="['/admin', item?.id]">
                       <i class="fa fa-wrench" aria-hidden="true"></i>
                     </a>
-                    <a title="Xoá" class="btn btn-success" (click)="deleteNews(item)"
+                    <a title="Xoá" class="btn btn-success" (click)="deleteNews(item, i)"
                       style="margin-right: 2px;"><i class="fa fa-trash" aria-hidden="true">
                     </i>
                     </a>

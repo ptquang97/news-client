@@ -9,10 +9,10 @@ declare const $: any;
 
 @Component({
   selector: 'app-page06',
-  templateUrl: './page06.component.html',
-  styleUrls: ['./page06.component.scss']
+  templateUrl: './manage-page.component.html',
+  styleUrls: ['./manage-page.component.scss']
 })
-export class Page06Component implements OnInit {
+export class ManagePageComponent implements OnInit {
   news: NewsInfo[];
   dataTable: any;
 
@@ -37,7 +37,7 @@ export class Page06Component implements OnInit {
         res.body[i].created_at = moment(res.body[i].created_at).format('DD-MM-YYYY HH:mm');
         res.body[i].updated_at = moment(res.body[i].updated_at).format('DD-MM-YYYY HH:mm');
       }
-      this.news = res.body;
+      this.news = res.body.reverse();
     }, error => {
       this.newsService.showLoading(false);
       this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
@@ -45,7 +45,7 @@ export class Page06Component implements OnInit {
     });
   }
 
-  deleteNews(item: NewsInfo) {
+  deleteNews(item: NewsInfo, index) {
     this.swal.confirm({
       title: 'Xóa tin này?',
       showCancelButton: true,
@@ -55,7 +55,7 @@ export class Page06Component implements OnInit {
     }).then(() => {
       this.newsService.deleteNews(item.id).subscribe((res: ApiResponse) => {
         this.swal.success({title: 'Xóa bài viết thành công'}).then(() => {
-
+          this.news.splice(index, 1);
         });
       }, error => {
         this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {

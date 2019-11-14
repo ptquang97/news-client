@@ -26,7 +26,7 @@
             <a class="dropdown-item fs14" [routerLink]="['/logout']" *ngIf="userInfo">Đăng xuất</a>
             <a class="dropdown-item fs14" [routerLink]="['/login']" *ngIf="!userInfo">Đăng nhập</a>
             <a class="dropdown-item fs14" [routerLink]="['/admin']" *ngIf="userInfo">Thêm bài viết</a>
-            <a class="dropdown-item fs14" [routerLink]="['/manager']" *ngIf="userInfo">Quản lý bài viết</a>
+            <a class="dropdown-item fs14" [routerLink]="['/manage']" *ngIf="userInfo">Quản lý bài viết</a>
           </div>
         </li>
       </ul>
