@@ -6,7 +6,15 @@ import {Http, RequestOptions, Response, URLSearchParams} from '@angular/http';
 import {HttpStatus} from '../common/http-status';
 import {Domain} from '../common/domain';
 import {RegisterInfo} from '../models/register-info';
-import {NavigationEnd, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  NavigationEnd,
+  RouteConfigLoadEnd,
+  RouteConfigLoadStart,
+  Router,
+  RouterStateSnapshot
+} from '@angular/router';
 import {Location} from '@angular/common';
 import {forEach} from '@angular/router/src/utils/collection';
 import {NewsCreateInfo} from '../models/news-create-info';
@@ -21,7 +29,6 @@ declare const $: any;
 export class NewsService {
   url: string;
   userInfo: UserInfo;
-  isFirstRouteConfigLoad = false;
   listCategory: CategoryInfo[];
 
   constructor(private http: Http,
@@ -54,13 +61,6 @@ export class NewsService {
           }
         }
       }
-      // if (event instanceof RouteConfigLoadEnd) {
-      //   if (this.isFirstRouteConfigLoad) {
-      //     this.showLoading(false);
-      //   } else {
-      //     this.isFirstRouteConfigLoad = true;
-      //   }
-      // }
     });
   }
 
@@ -370,5 +370,19 @@ export class NewsService {
         observer.error(error);
       });
     });
+  }
+}
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router,
+              private newsService: NewsService) {
+  }
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.newsService.userInfo) {
+      return true;
+    } else {
+      this.router.navigate(['']);
+    }
   }
 }
