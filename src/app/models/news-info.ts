@@ -11,6 +11,7 @@ export class NewsInfo {
   updated_at: string;
   category_name: string;
   user_name: string;
+  tag_name: string;
   time: string;
   constructor() {
   }

@@ -7,6 +7,8 @@ import {CreateNewsComponent} from './pages/create-news/create-news.component';
 import {CategoryNewsComponent} from './pages/category-news/category-news.component';
 import {NewsDetailComponent} from './pages/news-detail/news-detail.component';
 import {ManagePageComponent} from './pages/manage-page/manage-page.component';
+import {TagNewsComponent} from './pages/tag-news/tag-news.component';
+import {SearchNewsComponent} from './pages/search-news/search-news.component';
 import {AuthGuard} from './services/news.service';
 
 const routes: Routes = [
@@ -44,6 +46,14 @@ const routes: Routes = [
     path: 'manage',
     component: ManagePageComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tag/:tagId',
+    component: TagNewsComponent
+  },
+  {
+    path: 'search/:keyWord',
+    component: SearchNewsComponent
   }
 ];
 

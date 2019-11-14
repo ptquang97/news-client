@@ -251,6 +251,36 @@ export class NewsService {
     });
   }
 
+  searchNews(keyword): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/searchNews/' + keyword).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getNewsByTag(tagId): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNewsByTag/' + tagId).subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
   getCategoryInfo(categoryId): Observable<any> {
     return new Observable(observer => {
       this.http.get(Domain.domain + '/api/category/getCategoryInfo/' + categoryId).subscribe((response: Response) => {

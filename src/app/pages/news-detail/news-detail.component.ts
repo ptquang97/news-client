@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NewsInfo} from '../../models/news-info';
 import {CategoryInfo} from '../../models/category-info';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewsService} from '../../services/news.service';
 import {ApiResponse} from '../../models/api-response';
 import * as moment from 'moment';
@@ -27,7 +27,8 @@ export class NewsDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private newsService: NewsService,
-              private swal: SweetAlertService) {
+              private swal: SweetAlertService,
+              private router: Router) {
 
   }
 
@@ -128,4 +129,8 @@ export class NewsDetailComponent implements OnInit {
         });
       });
     }
+
+  goToTagPage(id) {
+    this.router.navigate(['tag', id]);
+  }
 }
