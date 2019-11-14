@@ -13,6 +13,7 @@ import {NewsCreateInfo} from '../models/news-create-info';
 import {CommentCreateInfo, CommentInfo} from '../models/comment-info';
 import {LocalStorage} from './local-storage.service';
 import {CategoryInfo} from '../models/category-info';
+import {SweetAlertService} from 'ngx-sweetalert2/src/index';
 
 declare const $: any;
 
@@ -22,10 +23,12 @@ export class NewsService {
   userInfo: UserInfo;
   isFirstRouteConfigLoad = false;
   listCategory: CategoryInfo[];
+
   constructor(private http: Http,
               private router: Router,
               private location: Location,
-              private localStorage: LocalStorage
+              private localStorage: LocalStorage,
+              private swal: SweetAlertService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -198,6 +201,22 @@ export class NewsService {
     });
   }
 
+  updateNews(news: NewsCreateInfo, newsId): Observable<any> {
+    return new Observable(observer => {
+      this.http.put(Domain.domain + '/api/news/updateNews/' + newsId, news)
+        .subscribe((response: Response) => {
+          if (response.status === HttpStatus.OK) {
+            observer.next(response.json());
+            observer.complete();
+          } else {
+            observer.error();
+          }
+        }, (error) => {
+          observer.error(error);
+        });
+    });
+  }
+
   uploadImage(image: any): Observable<any> {
     const formData: FormData = new FormData();
     for (let i = 0; i < image.length; i++) {
@@ -312,6 +331,36 @@ export class NewsService {
   getNews(): Observable<any> {
     return new Observable(observer => {
       this.http.get(Domain.domain + '/api/news/getNews').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  getNewsEachCategory(): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(Domain.domain + '/api/news/getNewsEachCategory').subscribe((response: Response) => {
+        if (response.status === HttpStatus.OK) {
+          observer.next(response.json());
+          observer.complete();
+        } else {
+          observer.error();
+        }
+      }, (error) => {
+        observer.error(error);
+      });
+    });
+  }
+
+  deleteNews(newsId): Observable<any> {
+    return new Observable(observer => {
+      this.http.delete(Domain.domain + '/api/news/deleteNews/' + newsId).subscribe((response: Response) => {
         if (response.status === HttpStatus.OK) {
           observer.next(response.json());
           observer.complete();

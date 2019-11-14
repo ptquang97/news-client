@@ -60,3 +60,15 @@ option{
 .hidden {
   visibility: hidden;
 }
+
+table {
+  tr {
+    td {
+      vertical-align: middle;
+      a {
+        color: #fff;
+        cursor: pointer !important;
+      }
+    }
+  }
+}

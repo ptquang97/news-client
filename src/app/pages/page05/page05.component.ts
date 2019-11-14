@@ -19,10 +19,8 @@ export class Page05Component implements OnInit {
 
   listNews: NewsInfo[];
   listNewsSecond: NewsInfo[];
-  categoryInfo: CategoryInfo;
   newsInfo: NewsInfo;
   newsId: number;
-  userCreated: UserInfo;
   relatedNews: NewsInfo;
   commentInfo: CommentCreateInfo;
   listComment: CommentInfo[];
@@ -37,11 +35,7 @@ export class Page05Component implements OnInit {
     this.activatedRoute.params
       .subscribe(params => {
         this.newsId = params['newsId'];
-        if (this.newsService.userInfo) {
-          this.commentInfo = new CommentCreateInfo('', this.newsService.userInfo.id, this.newsId);
-        } else {
-          this.commentInfo = new CommentCreateInfo('', '', this.newsId);
-        }
+        this.commentInfo = new CommentCreateInfo('',  '', this.newsId,);
         this.getNewsInfo();
       });
   }
@@ -54,19 +48,8 @@ export class Page05Component implements OnInit {
       this.newsService.showLoading(false);
       this.newsInfo = res.body[0];
       this.newsInfo.updated_at = moment(this.newsInfo.updated_at).format('HH:mm DD-MM-YYYY');
-      this.getUserInfo();
-      this.getCategoryInfo();
       this.getNews();
       this.getComment();
-    }, error => {
-      this.newsService.showLoading(false);
-
-    });
-  }
-
-  getUserInfo() {
-    this.newsService.getUserInfo(this.newsInfo.user_id).subscribe((res: ApiResponse) => {
-      this.userCreated = res.body;
     }, error => {
       this.newsService.showLoading(false);
 
@@ -100,15 +83,6 @@ export class Page05Component implements OnInit {
     });
   }
 
-  getCategoryInfo() {
-    this.newsService.getCategoryInfo(this.newsInfo.category_id).subscribe((res: ApiResponse) => {
-      this.categoryInfo = res.body[0];
-    }, error => {
-      this.newsService.showLoading(false);
-
-    });
-  }
-
   getComment() {
     this.newsService.getComment(this.newsId).subscribe((res: ApiResponse) => {
       for (let i = 0; i < res.body.length; i++) {
@@ -126,7 +100,7 @@ export class Page05Component implements OnInit {
         } else if (Number(hours) < 24) {
           res.body[i].time = hours + ' giờ trước';
         } else {
-          res.body[i].time = moment(res.body[i].updated_at).format('dd-mm-yyyy HH:mm');
+          res.body[i].time = moment(res.body[i].updated_at).format('DD-MM-YYYY HH:mm');
         }
       }
       this.listComment = res.body;
@@ -138,16 +112,14 @@ export class Page05Component implements OnInit {
   }
 
   sentComment() {
-    if (this.commentInfo.user_id) {
       this.newsService.createComment(this.commentInfo).subscribe((res: ApiResponse) => {
         this.commentInfo.comment = '';
+        this.commentInfo.user_name = '';
         this.getComment();
       }, error => {
-      });
-    } else {
-      this.swal.alert({title: 'Bạn cần đăng nhập để bình luận'}).then(() => {
+        this.swal.alert({title: 'Đã xảy ra lỗi'}).then(() => {
 
+        });
       });
     }
-  }
 }

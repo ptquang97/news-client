@@ -20,6 +20,7 @@ import { Page04Component } from './pages/page04/page04.component';
 import { Page05Component } from './pages/page05/page05.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {LocalStorage} from './services/local-storage.service';
+import { Page06Component } from './pages/page06/page06.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import {LocalStorage} from './services/local-storage.service';
     ModalComponent,
     Page04Component,
     Page05Component,
-    FooterComponent
+    FooterComponent,
+    Page06Component
   ],
   imports: [
     FormsModule,

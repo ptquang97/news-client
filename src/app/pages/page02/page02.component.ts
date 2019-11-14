@@ -4,7 +4,8 @@ import {SweetAlertService} from 'ngx-sweetalert2/src/index';
 import {ApiResponse} from '../../models/api-response';
 import {NewsInfo} from '../../models/news-info';
 import {CategoryInfo} from '../../models/category-info';
-import set = Reflect.set;
+import * as moment from 'moment';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-page02',
@@ -12,15 +13,11 @@ import set = Reflect.set;
   styleUrls: ['./page02.component.scss']
 })
 export class Page02Component implements OnInit {
-  newsLeft: NewsInfo[] = [];
   middleNews: NewsInfo;
   firstMultiMedia: NewsInfo;
-  secondMultiMedia: NewsInfo[];
+  listNewEachCategory: NewsInfo[];
   news: NewsInfo[];
-  newsRight: NewsInfo[] = [];
-  newsForUser = [{}, {}, {}, {}, {}, {}, {}, {}];
   listCategory: CategoryInfo[];
-  multiMediaRight: CategoryInfo[];
   loadingDone = false;
   loaded = false;
   constructor(private newsService: NewsService,
@@ -30,6 +27,7 @@ export class Page02Component implements OnInit {
   ngOnInit() {
     this.getNews();
     this.getListCategory();
+    this.getNewsEachCategory();
   }
 
   getNews() {
@@ -39,31 +37,43 @@ export class Page02Component implements OnInit {
       setTimeout(() => {
         this.loadingDone = true;
       }, 500);
+      for (let i = 0; i < res.body.length; i++) {
+        const dateNow = moment();
+        // const updatedDate = moment(res.body[i].updated_at);
+        const updatedDate = moment(res.body[i].updated_at);
+        const duration = moment.duration(dateNow.diff(updatedDate));
+        const second = new DecimalPipe('en-US').transform(duration.asSeconds(), '1.0-0');
+        const minute = new DecimalPipe('en-US').transform(duration.asMinutes(), '1.0-0');
+        const hours = new DecimalPipe('en-US').transform(duration.asHours(), '1.0-0');
+        if (Number(second) < 60) {
+          res.body[i].time = second + ' giây trước';
+        } else if (Number(minute) < 60) {
+          res.body[i].time = minute + ' phút trước';
+        } else if (Number(hours) < 25) {
+          res.body[i].time = hours + ' giờ trước';
+        } else {
+          res.body[i].time = moment(res.body[i].updated_at).format('DD-MM-YYYY HH:mm');
+        }
+      }
       this.news = res.body;
       this.middleNews = res.body[4];
       this.firstMultiMedia = res.body[7];
-      for (let i = 0; i < 4; i++) {
-        this.newsLeft.push(res.body[i]);
-      }
-      for (let i = 5; i < 7; i++) {
-        this.newsRight.push(res.body[i]);
-      }
-      for (let i = 8; i < 10; i++) {
-        this.multiMediaRight.push(res.body[i]);
-      }
-      for (let i = 10; i < 14; i++) {
-        this.multiMediaRight.push(res.body[i]);
-      }
-      console.log(res);
     }, error => {
       this.newsService.showLoading(false);
-
+      this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
+      });
     });
   }
 
   getListCategory() {
     this.newsService.getCategories().subscribe((res: ApiResponse) => {
         this.listCategory = res.body;
+    });
+  }
+
+  getNewsEachCategory() {
+    this.newsService.getNewsEachCategory().subscribe((res: ApiResponse) => {
+        this.listNewEachCategory = res.body;
     });
   }
 

@@ -4,12 +4,12 @@
     <ng-container *ngIf="newsInfo">
       <section id="category-header" class="section">
         <p class="the-article-category">
-          <a *ngIf="categoryInfo?.id" [routerLink]="['/page', categoryInfo?.id]"
-             title="{{categoryInfo?.category_name}}">{{categoryInfo?.category_name}}</a>
+          <a *ngIf="newsInfo?.id" [routerLink]="['/page', newsInfo?.category_id]"
+             title="{{newsInfo?.category_name}}">{{newsInfo?.category_name}}</a>
         </p>
         <h1 class="the-article-title">{{newsInfo?.title}}</h1>
         <span class="the-article-meta"><span
-          class="user-name">{{userCreated?.userName}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
+          class="user-name">{{newsInfo?.user_name}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
         <section class="main">
           <div class="row">
             <div class="col-12 col-md-9 br-w">
@@ -37,27 +37,35 @@
                 <div class="col-12 comment-widget">
                   <div class="comment-form">
                     <div class="comment-editor">
-                      <textarea class="comment-input" name="comment"
-                                placeholder="Bạn nghĩ gì về tin này? Đăng nhập để gửi bình luận" data-autosize-on="true"
-                                [(ngModel)]="commentInfo.comment"
-                      ></textarea>
+                      <form class="form-group">
+                        <div class="form-group">
+                          <textarea class="comment-input form-control" name="comment"
+                                    placeholder="Bạn nghĩ gì về tin này?" data-autosize-on="true"
+                                    [(ngModel)]="commentInfo.comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="userName" placeholder="Tên người dùng"
+                                 required="required" style="width: 50%" [(ngModel)]="commentInfo.user_name">
+                        </div>
+                      </form>
                       <p class="editor-tool"><a class="btnEmoticon"><span class="ti-face-smile"></span></a></p></div>
                     <button class="btn btn-primary" (click)="sentComment()">Gửi bình luận</button>
                   </div>
                   <div class="comment-list" *ngIf="listComment?.length > 0">
-                    <div class="list-header"><h4 class="list-title"> Ý kiến bạn đọc (<strong>{{listComment.length}}</strong>)</h4>
+                    <div class="list-header"><h4 class="list-title"> Ý kiến bạn đọc
+                      (<strong>{{listComment.length}}</strong>)</h4>
                     </div>
                     <ul class="comments">
                       <ng-container *ngFor="let item of listComment;">
-                      <li class="comment cmt-0">
-                        <div class="comment-meta">
-                          <img class="avatar"
-                               src="http://localhost/news-server/storage/app/photos/user.jpg"
-                                [alt]="item?.user_name">
-                          <p class="author"><span class="author-name">{{item?.user_name}}</span><span
-                            class="time">{{item?.time}}</span></p>
-                          <p class="comment-content">{{item?.comment}}</p>
-                        </div>
+                        <li class="comment cmt-0">
+                          <div class="comment-meta">
+                            <img class="avatar"
+                                 src="http://localhost/news-server/storage/app/photos/user.jpg"
+                                 [alt]="item?.user_name">
+                            <p class="author"><span class="author-name">{{item?.user_name}}</span><span
+                              class="time">{{item?.time}}</span></p>
+                            <p class="comment-content">{{item?.comment}}</p>
+                          </div>
                         </li>
                       </ng-container>
                     </ul>

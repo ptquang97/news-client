@@ -31,7 +31,6 @@ export class Page04Component implements OnInit {
     this.activatedRoute.params
       .subscribe(params => {
         this.categoryId = params['categoryId'];
-        this.getCategoryInfo();
         this.getNews();
       });
   }
@@ -67,14 +66,6 @@ export class Page04Component implements OnInit {
       }
     }, error => {
       this.newsService.showLoading(false);
-
-    });
-  }
-
-  getCategoryInfo() {
-    this.newsService.getCategoryInfo(this.categoryId).subscribe((res: ApiResponse) => {
-      this.categoryInfo = res.body[0];
-    }, error => {
 
     });
   }
