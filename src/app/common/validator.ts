@@ -1,8 +1,6 @@
 import {AbstractControl, FormGroup} from '@angular/forms';
 declare const $: any;
 export class Validator {
-  public static loginIDRegex = /^[a-zA-Z0-9\@\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~\.]+$/;
-  public static emailRegex = /^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;
 
   constructor() {
   }

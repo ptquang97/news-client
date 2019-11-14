@@ -34,7 +34,8 @@
                     <br>
                     <input type="file" class="form-control mb-2" name="avatar" placeholder="Tải Ảnh"
                            (change)="selectAvatar($event)" accept="image/x-png,image/gif,image/jpeg" hidden id="avatar">
-                    <img *ngIf="newsInfo.image" class="m-2" src="{{newsInfo.image}}" alt="{{newsInfo.image}}" title="{{newsInfo.image}}" width="100px" height="100px">
+                    <img *ngIf="newsInfo.image" class="m-2" src="{{newsInfo.image}}" alt="{{newsInfo.image}}"
+                         title="{{newsInfo.image}}" width="100px" height="100px">
                   </div>
                   <div class="form-group mt-3">
                     <span class="text-danger"></span>
@@ -64,22 +65,29 @@
                            (blur)="create(type.category)">
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-success" (click)="showModalCreateTag(type.tag)">Tạo Tag</button>
-                    <span class="text-danger"></span>
-                    <select class="form-control mt-2" [(ngModel)]="newsInfo.tags_id" name="tag_name">
-                      <option *ngFor="let tag of lisTag" value="{{ tag.id }}" data-placement="top"
-                              title="{{tag.tag_name}}">{{tag.tag_name}}
-                      </option>
-                    </select>
-                    <span class="text-danger mt-2" *ngIf="tagError && addTag">{{tagError}}</span>
-                    <input *ngIf="addTag" type="text" class="form-control" [ngClass]="{'mt-2' : !tagError}"
-                           name="newTag"
-                           placeholder="Điền Tag" required="required" [(ngModel)]="tagName" (blur)="create(type.tag)">
+                    <div class="">
+                      <button class="btn btn-success" (click)="showModalCreateTag(type.tag)">Tạo Tag</button>
+                      <span class="text-danger"></span>
+                    </div>
+                    <!--<select multiple class="form-control mt-2" [(ngModel)]="newsInfo.tags_id" name="tag_name">-->
+                    <!--<option *ngFor="let tag of lisTag" value="{{ tag.id }}" data-placement="top"-->
+                    <!--title="{{tag.tag_name}}">{{tag.tag_name}}-->
+                    <!--</option>-->
+                    <!--</select>-->
+                    <div class="">
+                      <l-select2 class="mt-3" [options]="tagOption" [(ngModel)]="tagSelected" name="tag_name"
+                                 [data]="lisTag" (ngModelChange)="selectTag()"></l-select2>
+                      <span class="text-danger mt-2" *ngIf="tagError && addTag">{{tagError}}</span>
+                      <input *ngIf="addTag" type="text" class="form-control" [ngClass]="{'mt-2' : !tagError}"
+                             name="newTag"
+                             placeholder="Điền Tag" required="required" [(ngModel)]="tagName" (blur)="create(type.tag)">
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success" (click)="onSubmit()">Tạo bài viết</button>
+                <button type="submit" class="btn btn-success" (click)="onSubmit()" *ngIf="!changeNewsContent">Tạo bài viết</button>
+                <button type="submit" class="btn btn-success" (click)="updateNews()" *ngIf="changeNewsContent">Update bài viết</button>
               </div>
             </form>
           </div>

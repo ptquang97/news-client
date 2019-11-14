@@ -64,7 +64,7 @@
               <div class="article-item type-picture type-hasvideo picked-multi short">
                 <p class="thumbnail">
                   <a [routerLink]="['/news', firstMultiMedia?.id]">
-                    <img (load)="loadedData()" [src]="firstMultiMedia?.image" alt="{{firstMultiMedia?.title}}">
+                    <img (load)="loadedData()" [src]="firstMultiMedia?.image" alt="{{firstMultiMedia?.title}}" class="img-media">
                   </a>
                 </p>
                 <header style="width: 100%;" [ngClass]="{'backgroud-header': loaded}">
@@ -123,13 +123,14 @@
           <div class="article-item d-flex mb-3">
             <p class="article-thumbnail mr-3 img-width" style="height: 180px; max-width: 330px;  min-width: 130px">
               <a [routerLink]="['/news', item?.id]">
-                <img class="img-width" style="max-width: 330px; height: 170px;" [src]="item?.image" alt="{{item?.title}}">
+                <img class="img-width" style="max-width: 330px; height: 170px;" [src]="item?.image"
+                     alt="{{item?.title}}">
               </a>
             </p>
             <div class="thumbnail-title">
               <a [routerLink]="['/news', item?.id]">{{item?.title}}</a>
               <div style="margin-top: -17px">
-                <span class="time">2 gio truoc<span class="category ml-2">the thao</span></span>
+                <span class="time">{{item?.time}}<span class="category ml-2">{{item?.category_name}}</span></span>
               </div>
               <div>
                 <p class="short-title">{{item?.short_intro}}</p>
@@ -141,50 +142,40 @@
       </div>
     </section>
     <div class="row">
-      <ng-container *ngFor="let item of listCategory">
+      <ng-container *ngFor="let item of listCategory; let i = index;">
         <div class="col-12 col-md-3">
           <section class="section category">
             <div class="box-category">
               <header class="section-title">
                 <h3 class="category-title">{{item.category_name}}</h3>
               </header>
-              <div class="article-item pb-4">
-                <p class="article-thumbnail">
-                  <a href="/nguoi-dan-ong-xung-thieu-ta-quan-doi-sau-tai-nan-post1011973.html">
-                    <img src="https://znews-photo.zadn.vn/w480/Uploaded/lce_mjccc/2019_11_11/Screenshot_138.jpg"
-                         class=" unveil">
+              <div class="article-item pb-4" style="max-height: 252px;">
+                <p class="article-thumbnail" style="max-height: 170px;">
+                  <a [routerLink]="['/news', listNewEachCategory[i * 3]?.id]">
+                    <img class="photo" [src]="listNewEachCategory[i * 3]?.image"
+                         alt="{{listNewEachCategory[i * 3]?.title}}" style="max-height: 150px;">
                   </a>
                 </p>
                 <div class="thumbnail-title">
-                  <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">HLV Troussier chỉ ra điều
-                    bóng
-                    đá Việt Nam cần học Nhật Bản</a>
+                  <a [routerLink]="['/news', listNewEachCategory[i * 3]?.id]">
+                    {{listNewEachCategory[i * 3]?.title}}
+                  </a>
                 </div>
               </div>
-              <div class="article-item d-flex">
-                <p class="article-thumbnail mr-2">
-                  <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
-                    <img
-                      src="https://znews-photo.zadn.vn/w210/Uploaded/ngotgs/2019_11_11/Screen_Shot_20191111_at_110440_AM.jpg"
-                      alt="Con trai lay do khong tra tien, bo danh nhan vien hinh anh">
-                  </a>
-                </p>
-                <p class="thumbnail-title title">
-                  <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">Con trai lấy đồ không trả
-                    tiền, bố đánh nhân viên</a></p>
-              </div>
-              <div class="article-item d-flex">
-                <p class="article-thumbnail mr-2">
-                  <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">
-                    <img
-                      src="https://znews-photo.zadn.vn/w210/Uploaded/ngotgs/2019_11_11/Screen_Shot_20191111_at_110440_AM.jpg"
-                      alt="Con trai lay do khong tra tien, bo danh nhan vien hinh anh">
-                  </a>
-                </p>
-                <p class="thumbnail-title title">
-                  <a href="/con-trai-lay-do-khong-tra-tien-bo-danh-nhan-vien-post1011956.html">Con trai lấy đồ không trả
-                    tiền, bố đánh nhân viên</a></p>
-              </div>
+              <ng-container
+                *ngFor="let item of listNewEachCategory.slice(i * 3 + 1, i * 3 + 3)">
+                <div class="article-item d-flex" style="min-height: 100px">
+                  <p class="article-thumbnail mr-2" style="min-width: 120px">
+                    <a [routerLink]="['/news', item?.id]" style="max-width: 280px">
+                      <img [src]="item?.image" alt="{{item?.title}}"
+                           style="min-width: 120px; height: 170px; max-width: 280px">
+                    </a>
+                  </p>
+                  <p class="thumbnail-title title">
+                    <a [routerLink]="['/news', item?.id]">{{item?.title}}</a>
+                  </p>
+                </div>
+              </ng-container>
             </div>
           </section>
         </div>

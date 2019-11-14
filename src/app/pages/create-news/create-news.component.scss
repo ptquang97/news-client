@@ -1,0 +1,62 @@
+@import '../../../../src/styles';
+
+.mt-7 {
+  margin-top: 5rem;
+}
+
+.show-content {
+  min-height: 540px;
+}
+dt {
+  border-left: 10px solid #E1E0DF;
+  border-bottom: 1px solid #E1E0DF;
+  .label {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.select2:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.select2 {
+  .selection {
+    .select2-selection {
+      width: 38px;
+    }
+  }
+
+}
+
+:host ::ng-deep .select2-selection {
+  height: 38px !important;
+}
+
+:host ::ng-deep .select2-selection__rendered {
+  margin-top: 5px;
+}
+:host ::ng-deep .select2-selection__placeholder {
+  color: #444 !important;
+}
+
+:host ::ng-deep .select2-selection {
+  margin-top: 10px;
+}
+
+:host ::ng-deep .select2-selection__arrow {
+  top: 16px !important;
+  color: #444 !important;
+}
+option{
+  height: 100px !important;
+}
+
+.hidden {
+  visibility: hidden;
+}

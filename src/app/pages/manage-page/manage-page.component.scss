@@ -34,10 +34,41 @@ dt {
 
 }
 
+:host ::ng-deep .select2-selection {
+  height: 38px !important;
+}
+
+:host ::ng-deep .select2-selection__rendered {
+  margin-top: 5px;
+}
+:host ::ng-deep .select2-selection__placeholder {
+  color: #444 !important;
+}
+
+:host ::ng-deep .select2-selection {
+  margin-top: 10px;
+}
+
+:host ::ng-deep .select2-selection__arrow {
+  top: 16px !important;
+  color: #444 !important;
+}
 option{
   height: 100px !important;
 }
 
 .hidden {
   visibility: hidden;
+}
+
+table {
+  tr {
+    td {
+      vertical-align: middle;
+      a {
+        color: #fff;
+        cursor: pointer !important;
+      }
+    }
+  }
 }

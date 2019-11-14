@@ -6,41 +6,42 @@ import {CategoryInfo} from '../../models/category-info';
 import {SweetAlertService} from 'ngx-sweetalert2';
 import {NewsCreateInfo} from '../../models/news-create-info';
 import {Domain} from '../../common/domain';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NewsInfo} from '../../models/news-info';
 
 @Component({
   selector: 'app-page03',
-  templateUrl: './page03.component.html',
-  styleUrls: ['./page03.component.scss']
+  templateUrl: './create-news.component.html',
+  styleUrls: ['./create-news.component.scss']
 })
-export class Page03Component implements OnInit {
+export class CreateNewsComponent implements OnInit {
   @ViewChild('ckeditor') ckeditor: ElementRef;
-  public editorValue = '';
   config: any;
-  categoryOption: any;
+  tagOption: any;
   listCategory: CategoryInfo[] = [];
-  selectedCategory: any;
   lisTag: TagInfo[] = [];
   addTag: boolean;
   addCategory: boolean;
-  showModal: boolean;
   type = {tag: 'tag', category: 'category'};
   categoryName: string;
   tagName: string;
   tagError: string;
   categoryError: string;
-  categorySelected: any;
-  tagSelected: any;
+  tagSelected: TagInfo;
   newsInfo: NewsCreateInfo;
   listImageUpload = [];
+  newsId: string;
+  changeNewsContent = false;
   constructor(private newsService: NewsService,
-              private swal: SweetAlertService) {
-    this.categoryOption = {
+              private swal: SweetAlertService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
+    this.tagOption = {
       multiple: false,
-      closeOnSelect: false,
-      placeholder: 'Select Category',
+      placeholder: 'Chọn Tag',
       language: {
         noResults: () => {
-          return 'No Result';
+          return 'Không có kết quả';
         }
       }
     };
@@ -48,6 +49,24 @@ export class Page03Component implements OnInit {
 
   ngOnInit() {
     this.newsInfo = new NewsCreateInfo('', '', '', '', '', '', '');
+    this.activatedRoute.params
+      .subscribe(params => {
+        this.newsId = params['newsId'];
+      });
+    if (this.newsId) {
+      this.newsService.showLoading(true);
+      this.newsService.getNewsInfo(this.newsId).subscribe((res: ApiResponse) => {
+        const data: NewsInfo = res.body[0];
+        this.newsService.showLoading(false);
+        this.newsInfo = new NewsCreateInfo(data.title, data.short_intro, data.content, data.user_id, data.category_id, data.tags_id, data.image);
+        this.changeNewsContent = true;
+        console.log(this.newsInfo);
+      }, error => {
+        this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
+
+        });
+      });
+    }
     this.getListTags();
     this.getListCategory();
     this.config = {
@@ -68,14 +87,16 @@ export class Page03Component implements OnInit {
         }
       }, error => {
         this.newsService.showLoading(false);
-        console.log(error);
+        this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
+
+        });
       });
     }
   }
 
   selectAvatar(fileInput: any) {
     this.newsService.showLoading(true);
-    const avatar = <Array<File>>fileInput.target.files
+    const avatar = <Array<File>>fileInput.target.files;
     if (avatar.length > 0) {
       this.newsService.uploadImage(avatar).subscribe((res: ApiResponse) => {
         this.newsService.showLoading(false);
@@ -90,12 +111,9 @@ export class Page03Component implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.ckeditor);
-    console.log(this.editorValue);
     this.newsService.showLoading(true);
     this.newsInfo.user_id = this.newsService.userInfo.id;
     this.newsService.creteNews(this.newsInfo).subscribe((res: ApiResponse) => {
-      console.log(res.body);
       this.newsService.showLoading(false);
       this.swal.success({title: 'Tạo bài viết thành công'}).then(() => {
 
@@ -108,16 +126,46 @@ export class Page03Component implements OnInit {
     });
   }
 
+  updateNews() {
+    this.newsService.showLoading(true);
+    this.newsInfo.user_id = this.newsService.userInfo.id;
+    this.newsService.updateNews(this.newsInfo, this.newsId).subscribe((res: ApiResponse) => {
+      this.newsService.showLoading(false);
+      this.swal.success({title: 'Chỉnh sửa viết thành công'}).then(() => {
+        this.router.navigate(['manage']);
+      });
+    }, error => {
+      this.newsService.showLoading(false);
+      this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
+
+      });
+    });
+  }
+
   getListTags() {
     this.newsService.getTags().subscribe((res: ApiResponse) => {
       this.lisTag = res.body;
-      this.lisTag.unshift({id: '', tag_name: 'Select tag'});
+      this.lisTag.map(item => {
+        item.text = item.tag_name;
+        if (item.tag_name === this.tagName) {
+          this.tagSelected = item;
+        }
+        if (this.changeNewsContent && this.newsInfo.tags_id === item.id) {
+          this.tagSelected = item;
+        }
+      });
+      this.tagName = '';
+      this.newsInfo.tags_id = this.tagSelected ? this.tagSelected.id : this.newsInfo.tags_id;
+      this.lisTag.unshift({id: '', text: 'Chọn tag', tag_name: 'Chọn tag'});
     });
   }
 
   getListCategory() {
     this.newsService.getCategories().subscribe((res: ApiResponse) => {
       this.listCategory = res.body;
+      const category = this.listCategory.filter(item => item.category_name === this.categoryName)[0];
+      this.newsInfo.category_id = category ? category.id : this.newsInfo.category_id;
+      this.categoryName = '';
       this.listCategory.unshift({id: '', category_name: 'Select Category'});
     });
   }
@@ -132,6 +180,10 @@ export class Page03Component implements OnInit {
     this.categoryError = '';
   }
 
+  selectTag() {
+    this.newsInfo.tags_id = this.tagSelected.id;
+  }
+
   create(type) {
     if (type === this.type.tag) {
       if (!this.tagName) {
@@ -142,7 +194,6 @@ export class Page03Component implements OnInit {
         this.newsService.showLoading(true);
         this.newsService.createTag(this.tagName).subscribe((res: ApiResponse) => {
           this.newsService.showLoading(false);
-          this.tagName = '';
           this.tagError = '';
           this.addTag = false;
           this.getListTags();
@@ -162,7 +213,6 @@ export class Page03Component implements OnInit {
         this.newsService.showLoading(true);
         this.newsService.createCategory(this.categoryName).subscribe((res: ApiResponse) => {
           this.newsService.showLoading(false);
-          this.categoryName = '';
           this.categoryError = '';
           this.addCategory = false;
           this.getListCategory();

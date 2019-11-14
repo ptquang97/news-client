@@ -3,7 +3,7 @@
   <div class="container mt-6" *ngIf="loadingDone">
     <section id="category-header" class="section">
       <h2>
-        <a *ngIf="categoryInfo?.id" [routerLink]="['/page', categoryInfo?.id]">{{categoryInfo?.category_name}}</a>
+        <a *ngIf="firstNews?.id" [routerLink]="['/page', categoryId]">{{firstNews?.category_name}}</a>
       </h2>
     </section>
     <ng-container>

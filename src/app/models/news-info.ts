@@ -9,6 +9,9 @@ export class NewsInfo {
   image: string;
   created_at: string;
   updated_at: string;
+  category_name: string;
+  user_name: string;
+  time: string;
   constructor() {
   }
 }

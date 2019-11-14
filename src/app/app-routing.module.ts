@@ -1,15 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LogoutComponent} from './components/logout/logout.component';
-import {Page01Component} from './pages/page01/page01.component';
-import {Page02Component} from './pages/page02/page02.component';
-import {Page03Component} from './pages/page03/page03.component';
-import {Page04Component} from './pages/page04/page04.component';
-import {Page05Component} from './pages/page05/page05.component';
+import {LoginPageComponent} from './pages/login-page/login-page.component';
+import {HomePageComponent} from './pages/home-page/home-page.component';
+import {CreateNewsComponent} from './pages/create-news/create-news.component';
+import {CategoryNewsComponent} from './pages/category-news/category-news.component';
+import {NewsDetailComponent} from './pages/news-detail/news-detail.component';
+import {ManagePageComponent} from './pages/manage-page/manage-page.component';
 const routes: Routes = [
   {
     path: 'login',
-    component: Page01Component
+    component: LoginPageComponent
   },
   {
     path: 'logout',
@@ -17,19 +18,27 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: Page02Component
+    component: HomePageComponent
   },
   {
     path: 'admin',
-    component: Page03Component
+    component: CreateNewsComponent
+  },
+  {
+    path: 'admin/:newsId',
+    component: CreateNewsComponent
   },
   {
     path: 'page/:categoryId',
-    component: Page04Component
+    component: CategoryNewsComponent
   },
   {
     path: 'news/:newsId',
-    component: Page05Component
+    component: NewsDetailComponent
+  },
+  {
+    path: 'manage',
+    component: ManagePageComponent
   }
 ];
 

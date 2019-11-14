@@ -9,10 +9,10 @@ import {CategoryInfo} from '../../models/category-info';
 
 @Component({
   selector: 'app-page04',
-  templateUrl: './page04.component.html',
-  styleUrls: ['./page04.component.scss']
+  templateUrl: './category-news.component.html',
+  styleUrls: ['./category-news.component.scss']
 })
-export class Page04Component implements OnInit {
+export class CategoryNewsComponent implements OnInit {
   listNews: NewsInfo[];
   listNewsSecond: NewsInfo[];
   firstNews: NewsInfo;
@@ -31,7 +31,6 @@ export class Page04Component implements OnInit {
     this.activatedRoute.params
       .subscribe(params => {
         this.categoryId = params['categoryId'];
-        this.getCategoryInfo();
         this.getNews();
       });
   }
@@ -67,14 +66,6 @@ export class Page04Component implements OnInit {
       }
     }, error => {
       this.newsService.showLoading(false);
-
-    });
-  }
-
-  getCategoryInfo() {
-    this.newsService.getCategoryInfo(this.categoryId).subscribe((res: ApiResponse) => {
-      this.categoryInfo = res.body[0];
-    }, error => {
 
     });
   }
