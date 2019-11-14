@@ -6,7 +6,7 @@
           <i class="fa fa-lock fa-2x" aria-hidden="true"></i>
         </div>
       </div>
-      <h2 class="text-center">Form Đăng Nhập</h2>
+      <h2 class="text-center">Đăng Nhập</h2>
       <div class="form-group">
         <span class="text-danger" *ngIf="formErrors.email">{{formErrors.email}}</span>
         <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="loginInfo.email"
@@ -20,10 +20,10 @@
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="checkLogin()">Đăng nhập</button>
       </div>
-      <div class="clearfix">
-        <label class="pull-left checkbox-inline"><input type="checkbox"> Ghi Nhớ</label>
-        <a href="#" class="pull-right">Quên tài khoản?</a>
-      </div>
+      <!--<div class="clearfix">-->
+        <!--<label class="pull-left checkbox-inline"><input type="checkbox"> Ghi Nhớ</label>-->
+        <!--<a href="#" class="pull-right">Quên tài khoản?</a>-->
+      <!--</div>-->
     </form>
     <!--<p class="text-center small">Chưa có tài khoản? <a class="cursor-pointer" (click)="goToRegisterPage(true)">Đăng kí-->
       <!--tại đây!</a></p>-->

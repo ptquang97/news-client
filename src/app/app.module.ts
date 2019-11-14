@@ -21,6 +21,8 @@ import {NewsDetailComponent} from './pages/news-detail/news-detail.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {LocalStorage} from './services/local-storage.service';
 import {ManagePageComponent} from './pages/manage-page/manage-page.component';
+import { TagNewsComponent } from './pages/tag-news/tag-news.component';
+import { SearchNewsComponent } from './pages/search-news/search-news.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {ManagePageComponent} from './pages/manage-page/manage-page.component';
     CategoryNewsComponent,
     NewsDetailComponent,
     FooterComponent,
-    ManagePageComponent
+    ManagePageComponent,
+    TagNewsComponent,
+    SearchNewsComponent
   ],
   imports: [
     FormsModule,

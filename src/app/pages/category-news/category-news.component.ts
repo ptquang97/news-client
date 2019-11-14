@@ -6,6 +6,7 @@ import {NewsInfo} from '../../models/news-info';
 import * as moment from 'moment';
 import {DecimalPipe} from '@angular/common';
 import {CategoryInfo} from '../../models/category-info';
+import {SweetAlertService} from 'ngx-sweetalert2/src/index';
 
 @Component({
   selector: 'app-page04',
@@ -23,7 +24,8 @@ export class CategoryNewsComponent implements OnInit {
   loaded = false;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private newsService: NewsService) {
+              private newsService: NewsService,
+              private swal: SweetAlertService) {
 
   }
 
@@ -66,7 +68,9 @@ export class CategoryNewsComponent implements OnInit {
       }
     }, error => {
       this.newsService.showLoading(false);
+      this.swal.error({title: 'Đã xảy ra lỗi'}).then(() => {
 
+      });
     });
   }
 

@@ -4,6 +4,7 @@ import {NewsService} from '../../services/news.service';
 import {CategoryInfo} from '../../models/category-info';
 import {Router} from '@angular/router';
 import {UserInfo} from '../../models/user-info';
+import {SweetAlertService} from 'ngx-sweetalert2/src/index';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,10 @@ import {UserInfo} from '../../models/user-info';
 export class HeaderComponent implements OnInit {
   listCategory: CategoryInfo[] = [];
   userInfo: UserInfo;
+  keyWord: string;
+
   constructor(private newsService: NewsService,
+              private swal: SweetAlertService,
               private router: Router) {
   }
 
@@ -37,5 +41,9 @@ export class HeaderComponent implements OnInit {
 
   goToNews(categoryId) {
     this.router.navigate(['page', categoryId]);
+  }
+
+  searchNews() {
+    this.router.navigate(['search', this.keyWord]);
   }
 }
