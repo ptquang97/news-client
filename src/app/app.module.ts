@@ -23,6 +23,7 @@ import {LocalStorage} from './services/local-storage.service';
 import {ManagePageComponent} from './pages/manage-page/manage-page.component';
 import { TagNewsComponent } from './pages/tag-news/tag-news.component';
 import { SearchNewsComponent } from './pages/search-news/search-news.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { SearchNewsComponent } from './pages/search-news/search-news.component';
     ReactiveFormsModule,
     HttpModule,
     CKEditorModule,
-    LSelect2Module
+    LSelect2Module,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [
     NewsService,

@@ -10,6 +10,10 @@
     </div>
     <div class="row">
       <div class="col-12 mt-2">
+        <div [froalaEditor]="option" [(froalaModel)]="editorContent">Hello, Froala!</div>
+        <!--<div [froalaEditor] [(froalaModel)]="editorContent"></div>-->
+        <div [froalaView]="editorContent"></div>
+
         <label class="cursor-pointer btn btn-success" for="img">Chọn ảnh xuất hiện trong bài viết</label>
         <input #file type="file" multiple class="form-control mb-2" name="image" placeholder="Tải Ảnh"
                (change)="selectImage($event)" accept="image/x-png,image/gif,image/jpeg" hidden id="img">

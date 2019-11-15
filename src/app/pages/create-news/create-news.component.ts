@@ -32,6 +32,9 @@ export class CreateNewsComponent implements OnInit {
   listImageUpload = [];
   newsId: string;
   changeNewsContent = false;
+  editorContent: any;
+  option: any;
+
   constructor(private newsService: NewsService,
               private swal: SweetAlertService,
               private activatedRoute: ActivatedRoute,
@@ -73,6 +76,39 @@ export class CreateNewsComponent implements OnInit {
       uiColor: '#F0F3F4',
       height: '250px',
       fullPage: false
+    };
+    this.option = {
+      placeholderText: 'Edit Your Content Hsadasdsaere!',
+      charCounterCount: false,
+      // toolbarButtons: {
+      //   'moreText': {
+      //     'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
+      //   },
+      //   'moreParagraph': {
+      //     'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
+      //   },
+      //   'moreRich': {
+      //     'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
+      //   },
+      //   'moreMisc': {
+      //     'buttons': ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
+      //     'align': 'right',
+      //     'buttonsVisible': 2
+      //   }
+      // },
+      imageInsertButtons: ['imageBack', '|', 'imageManager'],
+      fullPage: true,
+      imageMaxSize: 1024 * 1024 * 3,
+      toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert'],
+      toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert'],
+      toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat', 'alert'],
+      imageAddNewLine: true,
+      imageUploadMethod: 'PUT',
+      fontFamily: {
+        'Arial,Helvetica,sans-serif': 'Font 1',
+        'Impact,Charcoal,sans-serif': 'Font 2',
+        'Tahoma,Geneva,sans-serif': 'Font 3'
+      }
     };
   }
 
