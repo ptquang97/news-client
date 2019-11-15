@@ -406,10 +406,11 @@ export class NewsService {
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private router: Router,
-              private newsService: NewsService) {
+              private newsService: NewsService,
+              private localStorage: LocalStorage) {
   }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.newsService.userInfo) {
+    if (this.localStorage.getObject('currentUser')) {
       return true;
     } else {
       this.router.navigate(['']);
