@@ -140,7 +140,7 @@ export class CreateNewsComponent implements OnInit {
     this.newsInfo.user_id = this.newsService.userInfo.id;
     this.newsInfo.tags_id = [];
     this.tagSelected.map(item => {
-      this.newsInfo.tags_id.push(item.id);
+      this.newsInfo.tags_id.push(Number(item.id));
     });
     this.newsService.updateNews(this.newsInfo, this.newsId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
