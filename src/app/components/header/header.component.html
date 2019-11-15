@@ -13,7 +13,7 @@
         </li>
         <ng-container *ngFor="let item of listCategory">
           <li class="nav-item dropdown cursor-pointer" data-toggle="dropdown">
-            <a class="nav-link text-light font-weight-bold" (click)="goToNews(item.id)">{{item.category_name}}</a>
+            <a class="nav-link text-light font-weight-bold" (click)="goToNews(item?.id)">{{item?.category_name}}</a>
           </li>
         </ng-container>
       </ul>

@@ -4,10 +4,10 @@ export class NewsCreateInfo {
   content: string;
   user_id: string;
   category_id: string;
-  tags_id: string;
+  tags_id: number[];
   image: string;
 
-  constructor(title: string, short_intro: string, content: string, user_id: string, category_id: string, tags_id: string, image: string) {
+  constructor(title: string, short_intro: string, content: string, user_id: string, category_id: string, tags_id: number[], image: string) {
     this.title = title;
     this.short_intro = short_intro;
     this.content = content;

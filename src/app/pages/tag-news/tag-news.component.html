@@ -4,7 +4,7 @@
     <ng-container>
       <section class="section mt-4">
         <header class="section-title">
-          <h3>{{listNews[0].tag_name}}</h3>
+          <h3>{{listNews[0]?.tag_name}}</h3>
         </header>
         <div class="news-for-you col-12 col-md-10 col-xl-9">
           <ng-container *ngFor="let item of listNews">

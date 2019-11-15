@@ -67,7 +67,7 @@ export class HomePageComponent implements OnInit {
 
   getListCategory() {
     this.newsService.getCategories().subscribe((res: ApiResponse) => {
-        this.listCategory = res.body;
+        this.listCategory = res.body.length > 8 ? res.body.slice(0 , 8) : res.body;
     });
   }
 

@@ -9,7 +9,7 @@
         </p>
         <h1 class="the-article-title">{{newsInfo?.title}}</h1>
         <span class="the-article-meta"><span
-          class="user-name">{{newsInfo?.user_name}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
+          class="user-name">{{newsInfo?.userName}}</span> đăng lúc {{newsInfo?.updated_at}}</span>
         <section class="main">
           <div class="row">
             <div class="col-12 col-md-9 br-w">
@@ -32,7 +32,12 @@
                     </div>
                   </div>
                 </div>
-                <p class="m-2"> Từ khóa tìm kiếm: <strong class="cursor-pointer" (click)="goToTagPage(newsInfo?.tags_id)">{{newsInfo?.tag_name}}</strong>
+                <p class="m-2 mt-4"> Từ khóa tìm kiếm:
+                  <ng-container *ngFor="let item  of newsInfo?.tag_name; let i = index;">
+                    <strong class="cursor-pointer" style="font-size: 16px" (click)="goToTagPage(newsInfo?.tags_id[i])">{{item}}
+                      <span *ngIf="i < newsInfo?.tag_name.length - 1"> ,</span>
+                    </strong>
+                  </ng-container>
                 </p>
               </div>
               <div class="row mt-5">

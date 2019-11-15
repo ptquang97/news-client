@@ -34,8 +34,8 @@
                     <br>
                     <input type="file" class="form-control mb-2" name="avatar" placeholder="Tải Ảnh"
                            (change)="selectAvatar($event)" accept="image/x-png,image/gif,image/jpeg" hidden id="avatar">
-                    <img *ngIf="newsInfo.image" class="m-2" src="{{newsInfo.image}}" alt="{{newsInfo.image}}"
-                         title="{{newsInfo.image}}" width="100px" height="100px">
+                    <img *ngIf="newsInfo?.image" class="m-2" src="{{newsInfo?.image}}" alt="{{newsInfo?.image}}"
+                         title="{{newsInfo?.image}}" width="100px" height="100px">
                   </div>
                   <div class="form-group mt-3">
                     <span class="text-danger"></span>
@@ -54,8 +54,8 @@
                     </button>
                     <select class="form-control mt-2" id="category" [(ngModel)]="newsInfo.category_id"
                             name="category_name">
-                      <option *ngFor="let category of listCategory" value="{{ category.id }}" data-placement="top"
-                              title="{{category.category_name}}">{{category.category_name}}
+                      <option *ngFor="let category of listCategory" value="{{category?.id}}"
+                              title="{{category?.category_name}}">{{category?.category_name}}
                       </option>
                     </select>
                     <span class="text-danger mt-2" *ngIf="categoryError">{{categoryError}}</span>

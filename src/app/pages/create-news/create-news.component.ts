@@ -27,7 +27,7 @@ export class CreateNewsComponent implements OnInit {
   tagName: string;
   tagError: string;
   categoryError: string;
-  tagSelected: TagInfo;
+  tagSelected: TagInfo[] = [];
   newsInfo: NewsCreateInfo;
   listImageUpload = [];
   newsId: string;
@@ -37,7 +37,7 @@ export class CreateNewsComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router) {
     this.tagOption = {
-      multiple: false,
+      multiple: true,
       placeholder: 'Chọn Tag',
       language: {
         noResults: () => {
@@ -48,7 +48,7 @@ export class CreateNewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newsInfo = new NewsCreateInfo('', '', '', '', '', '', '');
+    this.newsInfo = new NewsCreateInfo('', '', '', '', '', [], '');
     this.activatedRoute.params
       .subscribe(params => {
         this.newsId = params['newsId'];
@@ -56,9 +56,10 @@ export class CreateNewsComponent implements OnInit {
     if (this.newsId) {
       this.newsService.showLoading(true);
       this.newsService.getNewsInfo(this.newsId).subscribe((res: ApiResponse) => {
-        const data: NewsInfo = res.body[0];
+        const data: NewsInfo = res.body;
         this.newsService.showLoading(false);
         this.newsInfo = new NewsCreateInfo(data.title, data.short_intro, data.content, data.user_id, data.category_id, data.tags_id, data.image);
+        console.log(this.newsInfo);
         this.changeNewsContent = true;
         console.log(this.newsInfo);
       }, error => {
@@ -113,6 +114,14 @@ export class CreateNewsComponent implements OnInit {
   onSubmit() {
     this.newsService.showLoading(true);
     this.newsInfo.user_id = this.newsService.userInfo.id;
+    this.newsInfo.tags_id = [];
+    this.tagSelected.map(item => {
+      console.log(item.id);
+      this.newsInfo.tags_id.push(Number(item.id));
+      console.log(this.newsInfo.tags_id);
+
+    });
+    console.log(this.newsInfo.tags_id);
     this.newsService.creteNews(this.newsInfo).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
       this.swal.success({title: 'Tạo bài viết thành công'}).then(() => {
@@ -129,6 +138,10 @@ export class CreateNewsComponent implements OnInit {
   updateNews() {
     this.newsService.showLoading(true);
     this.newsInfo.user_id = this.newsService.userInfo.id;
+    this.newsInfo.tags_id = [];
+    this.tagSelected.map(item => {
+      this.newsInfo.tags_id.push(item.id);
+    });
     this.newsService.updateNews(this.newsInfo, this.newsId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
       this.swal.success({title: 'Chỉnh sửa viết thành công'}).then(() => {
@@ -146,17 +159,20 @@ export class CreateNewsComponent implements OnInit {
     this.newsService.getTags().subscribe((res: ApiResponse) => {
       this.lisTag = res.body;
       this.lisTag.map(item => {
+        console.log(this.newsInfo.tags_id);
+        console.log(item.id);
+        console.log(this.newsInfo.tags_id.indexOf(item.id));
         item.text = item.tag_name;
         if (item.tag_name === this.tagName) {
-          this.tagSelected = item;
+          this.tagSelected.push(item);
         }
-        if (this.changeNewsContent && this.newsInfo.tags_id === item.id) {
-          this.tagSelected = item;
+        if (this.changeNewsContent && this.newsInfo.tags_id.indexOf(item.id) !== -1) {
+          this.tagSelected.push(item);
         }
       });
       this.tagName = '';
-      this.newsInfo.tags_id = this.tagSelected ? this.tagSelected.id : this.newsInfo.tags_id;
-      this.lisTag.unshift({id: '', text: 'Chọn tag', tag_name: 'Chọn tag'});
+      // this.newsInfo.tags_id = this.tagSelected ? this.tagSelected.id : this.newsInfo.tags_id;
+      this.lisTag.unshift({id: null, text: 'Chọn tag', tag_name: 'Chọn tag'});
     });
   }
 
@@ -181,7 +197,11 @@ export class CreateNewsComponent implements OnInit {
   }
 
   selectTag() {
-    this.newsInfo.tags_id = this.tagSelected.id;
+    // this.newsInfo.tags_id = this.tagSelected.id;
+    // console.log('selected', this.tagSelected);
+    // this.tagSelected.map(item => {
+    //   this.newsInfo.tags_id.push(item);
+    // });
   }
 
   create(type) {

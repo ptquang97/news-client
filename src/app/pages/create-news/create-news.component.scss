@@ -35,7 +35,7 @@ dt {
 }
 
 :host ::ng-deep .select2-selection {
-  height: 38px !important;
+  min-height: 38px !important;
 }
 
 :host ::ng-deep .select2-selection__rendered {

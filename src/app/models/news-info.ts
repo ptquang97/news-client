@@ -5,13 +5,13 @@ export class NewsInfo {
   content: string;
   user_id: string;
   category_id: string;
-  tags_id: string;
+  tags_id: number[];
   image: string;
   created_at: string;
   updated_at: string;
   category_name: string;
-  user_name: string;
-  tag_name: string;
+  userName: string;
+  tag_name: string[];
   time: string;
   constructor() {
   }

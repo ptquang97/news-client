@@ -47,7 +47,7 @@ export class NewsDetailComponent implements OnInit {
     this.newsService.showLoading(true);
     this.newsService.getNewsInfo(this.newsId).subscribe((res: ApiResponse) => {
       this.newsService.showLoading(false);
-      this.newsInfo = res.body[0];
+      this.newsInfo = res.body;
       this.newsInfo.updated_at = moment(this.newsInfo.updated_at).format('HH:mm DD-MM-YYYY');
       this.getNews();
       this.getComment();

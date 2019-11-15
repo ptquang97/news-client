@@ -1,5 +1,5 @@
 export class TagInfo {
-  public id: string;
+  public id: number;
   public tag_name: string;
   public text: string;
   constructor() {
